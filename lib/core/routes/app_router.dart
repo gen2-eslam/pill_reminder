@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
+import 'package:pill_reminder/module/add_mdecine/add_medecine_screen.dart';
 import 'package:pill_reminder/module/forget_password/forget_password_screen.dart';
+import 'package:pill_reminder/module/home/home_screen.dart';
 import 'package:pill_reminder/module/login/login_screen.dart';
 import 'package:pill_reminder/module/otp/otp_screen.dart';
 import 'package:pill_reminder/module/reset_password/reset_password_screen.dart';
@@ -21,10 +23,10 @@ abstract class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const LoginScreen(),
         );
-      // case Routes.homeScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const HomeScreen(),
-      //   );
+      case Routes.homeScreen:
+        return MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
+        );
 
       case Routes.signUpScreen:
         return MaterialPageRoute(
@@ -46,6 +48,11 @@ abstract class AppRouter {
       case Routes.successResetPasswordScreen:
         return MaterialPageRoute(
           builder: (_) => const SucessResetPasswordScreen(),
+        );
+      //addMedecineScreen
+      case Routes.addMedecineScreen:
+        return MaterialPageRoute(
+          builder: (_) => const AddMedecineScreen(),
         );
       // case Routes.signUpScreen:
       //   return MaterialPageRoute(

@@ -9,4 +9,6 @@ abstract class Routes {
   static const String resetPasswordScreen = "/resetPasswordScreen";
   //SucessResetPasswordScreen
   static const String successResetPasswordScreen = "/successResetPasswordScreen";
+  //AddMedecineScreen
+  static const String addMedecineScreen = "/addMedecineScreen";
 }

@@ -3,6 +3,9 @@
 A new Flutter project.
 
 ## Getting Started
+# FIGMA (https://www.figma.com/file/JMm5IDzKLBdC8sPgYbu0ZB/Pill-Reminder-%26-Medication-Tracking-App-(2019)-(Community)?type=design&node-id=0-1&mode=design&t=o1aIHj74AaJJKhwV-0)
+  combtable gridle 34
+  kotlin v 1.9.10
 
 This project is a starting point for a Flutter application.
 

@@ -13,6 +13,7 @@ class CustomTextFormFeild extends StatelessWidget {
   final TextEditingController? controller;
   final Widget? suffixIcon;
   final bool obscureText;
+  final bool? filled;
   final TextStyle? texytStyle;
   final String? Function(String?)? validator;
   const CustomTextFormFeild({
@@ -26,6 +27,7 @@ class CustomTextFormFeild extends StatelessWidget {
     this.controller,
     required this.hintText,
     this.texytStyle,
+    this.filled,
   });
   OutlineInputBorder border(BuildContext context) => OutlineInputBorder(
         borderSide: const BorderSide(
@@ -58,6 +60,8 @@ class CustomTextFormFeild extends StatelessWidget {
           style: texytStyle,
           validator: validator,
           decoration: InputDecoration(
+            fillColor: ColorsManager.lightGray,
+            filled: filled,
             hintText: hintText,
             alignLabelWithHint: true,
             prefixIcon: prefixIcon != null

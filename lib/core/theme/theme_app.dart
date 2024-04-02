@@ -5,7 +5,7 @@ import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 abstract class ThemeApp {
   static ThemeData light(BuildContext context) => ThemeData(
         primaryColor: ColorsManager.green,
-        scaffoldBackgroundColor: ColorsManager.offWhite,
+        scaffoldBackgroundColor: ColorsManager.white,
         brightness: Brightness.light,
         useMaterial3: false,
         // fontFamily: GoogleFonts.aBeeZee().fontFamily,
