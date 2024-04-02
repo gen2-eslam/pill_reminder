@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
@@ -10,17 +9,17 @@ class CustomTextFeild extends StatelessWidget {
   final String? initialValue;
   final String? hintText;
   final bool enabled;
-  final IconData? prefixIcon;
+  final Widget? prefixIcon;
   final String title;
 
   const CustomTextFeild({
     super.key,
     this.controller,
     this.initialValue,
-    this.prefixIcon,
     required this.title,
     required this.enabled,
     this.hintText,
+    this.prefixIcon,
   });
 
   @override
@@ -49,10 +48,7 @@ class CustomTextFeild extends StatelessWidget {
             filled: true,
             fillColor: ColorsManager.lightGray,
             alignLabelWithHint: true,
-            prefixIcon: Icon(
-              prefixIcon,
-              color: ColorsManager.gray,
-            ),
+            prefixIcon: prefixIcon,
             disabledBorder: border(context),
             border: border(context),
             enabledBorder: border(context),

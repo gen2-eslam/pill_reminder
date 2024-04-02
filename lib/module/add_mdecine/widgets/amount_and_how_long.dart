@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
+import 'package:pill_reminder/core/widgets/pill_icon.dart';
 
 class AmountAndHowLong extends StatelessWidget {
   const AmountAndHowLong({
@@ -34,8 +34,7 @@ class AmountAndHowLong extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.medical_information_sharp,
-                      color: ColorsManager.gray),
+                  const PillIcon(),
                   SizedBox(width: 10.w),
                   DropdownButton(
                     icon: Row(children: [

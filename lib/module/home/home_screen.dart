@@ -4,8 +4,11 @@ import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
+import 'package:pill_reminder/core/utils/images_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
+import 'package:pill_reminder/core/widgets/pill_icon.dart';
 import 'package:pill_reminder/module/home/widgets/custom_search_bar.dart';
+import 'package:pill_reminder/module/medecine/medecine_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -68,11 +71,10 @@ class HomeScreen extends StatelessWidget {
                             Radius.circular(24),
                           ),
                         ),
-                        onTap: () {},
-                        leading: const Icon(
-                          Icons.medication,
-                          color: ColorsManager.gray,
-                        ),
+                        onTap: () {
+                          context.pushNamed(Routes.medecineScreen);
+                        },
+                        leading: const PillIcon(),
                         title: CustomText(
                           textAlign: TextAlign.start,
                           text: "Oxycodone",

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/module/add_mdecine/add_medecine_screen.dart';
+import 'package:pill_reminder/module/edit_bill/edit_pill_screen.dart';
 import 'package:pill_reminder/module/forget_password/forget_password_screen.dart';
+import 'package:pill_reminder/module/history/details_history_screen.dart';
+import 'package:pill_reminder/module/history/history_screen.dart';
 import 'package:pill_reminder/module/home/home_screen.dart';
 import 'package:pill_reminder/module/login/login_screen.dart';
+import 'package:pill_reminder/module/medecine/medecine_screen.dart';
 import 'package:pill_reminder/module/otp/otp_screen.dart';
 import 'package:pill_reminder/module/reset_password/reset_password_screen.dart';
 import 'package:pill_reminder/module/reset_password/sucess_reset_password_screen.dart';
@@ -54,14 +58,22 @@ abstract class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const AddMedecineScreen(),
         );
-      // case Routes.signUpScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => BlocProvider(
-      //       create: (context) => getIt<SignupCubit>(),
-      //       child: const SignupScreen(),
-      //     ),
-      //   );
-
+      case Routes.medecineScreen:
+        return MaterialPageRoute(
+          builder: (_) => const MedecineScreen(),
+        );
+      case Routes.historyScreen:
+        return MaterialPageRoute(
+          builder: (_) => const HistoryScreen(),
+        );
+      case Routes.detailsHistoryScreen:
+        return MaterialPageRoute(
+          builder: (_) => const DetailsHistoryScreen(),
+        );
+      case Routes.editPillScreen:
+        return MaterialPageRoute(
+          builder: (_) => const EditPillScreen(),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

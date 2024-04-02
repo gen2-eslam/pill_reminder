@@ -5,10 +5,14 @@ abstract class Routes {
   static const String homeScreen = '/homeScreen';
   static const String forgetScreen = "/forgetScreen";
   static const String otpScreen = "/otpScreen";
-  //reset password 
   static const String resetPasswordScreen = "/resetPasswordScreen";
-  //SucessResetPasswordScreen
   static const String successResetPasswordScreen = "/successResetPasswordScreen";
-  //AddMedecineScreen
   static const String addMedecineScreen = "/addMedecineScreen";
+  static const String medecineScreen = "/medecineScreen";
+  static const String historyScreen = "/historyScreen";
+
+  static const String detailsHistoryScreen = "/detailsHistoryScreen";
+  //EditPillScreen
+
+  static const String editPillScreen = "/editPillScreen";
 }
