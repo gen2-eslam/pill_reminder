@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:pill_reminder/core/networking/pill_reminder_end_point.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 //Dio Helper That's Connect and Talk to API.
@@ -12,7 +13,7 @@ class DioHelper {
     dio = Dio(
       BaseOptions(
         //Here the URL of API.
-        // baseUrl: RaknaEndPoints.baseUrl,
+         baseUrl: PillReminderEndPoint.baseUrl,
         connectTimeout: const Duration(minutes: 4),
         receiveDataWhenStatusError: true,
 
