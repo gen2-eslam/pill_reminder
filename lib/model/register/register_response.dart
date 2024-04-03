@@ -1,18 +1,17 @@
-class RegisterResponse {
+class AuthResponse {
   String message;
   String type;
   int code;
   bool showToast;
 
-  RegisterResponse({
+  AuthResponse({
     required this.message,
     required this.type,
     required this.code,
     required this.showToast,
   });
 
-  factory RegisterResponse.fromJson(Map<String, dynamic> json) =>
-      RegisterResponse(
+  factory AuthResponse.fromJson(Map<String, dynamic> json) => AuthResponse(
         message: json["message"],
         type: json["type"],
         code: json["code"],

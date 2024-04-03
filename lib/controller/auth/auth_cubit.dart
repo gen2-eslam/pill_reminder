@@ -6,11 +6,11 @@ import 'package:pill_reminder/model/verifiy_user/verfiy_user.dart';
 
 part 'auth_state.dart';
 
-class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit({required this.registerRepo}) : super(RegisterInitial());
+class AuthCubit extends Cubit<AuthState> {
+  AuthCubit({required this.registerRepo}) : super(RegisterInitial());
 
-  static RegisterCubit get(context) => BlocProvider.of(context);
-  RegisterRepo registerRepo;
+  static AuthCubit get(context) => BlocProvider.of(context);
+  AuthRepo registerRepo;
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -65,6 +65,18 @@ class RegisterCubit extends Cubit<RegisterState> {
       emit(VerifyUserError(error: l.errorMessage));
     }, (r) {
       emit(VerifyUserSuccess(message: r.message));
+    });
+  }
+
+  //login
+  Future<void> login() async {
+    emit(LoginLoading());
+    final response = await registerRepo.login(
+        email: emailController.text, password: passwordController.text);
+    response.fold((l) {
+      emit(LoginError(error: l.errorMessage));
+    }, (r) {
+      emit(LoginSuccess(message: r.message));
     });
   }
 }

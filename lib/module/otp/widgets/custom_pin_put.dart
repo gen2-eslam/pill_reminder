@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:pill_reminder/controller/cubit/register_cubit.dart';
+import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
@@ -14,7 +14,7 @@ class CustomPinPut extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Pinput(
-      controller: RegisterCubit.get(context).pinPutController,
+      controller: AuthCubit.get(context).pinPutController,
       followingPinTheme: PinTheme(
         width: context.deviceWidth * 0.15,
         height: context.deviceWidth * 0.15,

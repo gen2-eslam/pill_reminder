@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/cubit/register_cubit.dart';
+import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/core/dependency_injection/dependency_injection.dart';
 import 'package:pill_reminder/core/networking/dio_helpers.dart';
 import 'package:pill_reminder/core/routes/app_router.dart';
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => RegisterCubit(
+            create: (context) => AuthCubit(
               registerRepo: RegisterRepoImpl(),
             ),
           ),

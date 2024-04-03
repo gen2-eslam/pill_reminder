@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/cubit/register_cubit.dart';
+import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
@@ -20,7 +20,7 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RegisterCubit, RegisterState>(
+    return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is VerifyUserError) {
           ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
@@ -72,7 +72,7 @@ class OtpScreen extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                          text: RegisterCubit.get(context).emailController.text,
+                          text: AuthCubit.get(context).emailController.text,
                           style: TextStyleManager.textStyle15w500
                               .copyWith(color: ColorsManager.darkblue))
                     ],
@@ -83,7 +83,7 @@ class OtpScreen extends StatelessWidget {
                 SizedBox(height: 60.h),
                 CustomElevatedButton(
                   onPressed: () {
-                    RegisterCubit.get(context).verifyUser();
+                    AuthCubit.get(context).verifyUser();
                   },
                   child: CustomText(
                     text: "Verify",
@@ -100,7 +100,7 @@ class OtpScreen extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 20.h),
           child: TextButton(
             onPressed: () {
-              RegisterCubit.get(context).resendCode();
+              AuthCubit.get(context).resendCode();
             },
             child: CustomText(
               text: "Send code again",

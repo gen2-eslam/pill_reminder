@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/cubit/register_cubit.dart';
+import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
@@ -18,7 +18,7 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RegisterCubit, RegisterState>(
+    return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
@@ -49,7 +49,7 @@ class SignupScreen extends StatelessWidget {
                 SizedBox(height: 30.h),
                 const SignupFormWidget(),
                 SizedBox(height: 30.h),
-                BlocBuilder<RegisterCubit, RegisterState>(
+                BlocBuilder<AuthCubit, AuthState>(
                   builder: (context, state) {
                     if (state is RegisterLoading) {
                       return const Center(
@@ -60,11 +60,11 @@ class SignupScreen extends StatelessWidget {
                     }
                     return CustomElevatedButton(
                       onPressed: () {
-                        if (RegisterCubit.get(context)
+                        if (AuthCubit.get(context)
                             .formKey
                             .currentState!
                             .validate()) {
-                          context.read<RegisterCubit>().register();
+                          context.read<AuthCubit>().register();
                         }
                       },
                       child: CustomText(

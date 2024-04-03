@@ -1,23 +1,40 @@
 part of 'auth_cubit.dart';
 
+abstract class AuthState {}
 
-abstract class RegisterState {}
+final class RegisterInitial extends AuthState {}
 
-final class RegisterInitial extends RegisterState {}
-final class RegisterLoading extends RegisterState {}
-final class RegisterSuccess extends RegisterState {
+final class RegisterLoading extends AuthState {}
+
+final class RegisterSuccess extends AuthState {
   final String message;
   RegisterSuccess({required this.message});
 }
-final class RegisterError extends RegisterState {
+
+final class RegisterError extends AuthState {
   final String error;
   RegisterError({required this.error});
 }
-final class VerifyUserSuccess extends RegisterState {
+
+final class LoginLoading extends AuthState {}
+
+final class LoginSuccess extends AuthState {
+  final String message;
+  LoginSuccess({required this.message});
+}
+
+final class LoginError extends AuthState {
+  final String error;
+  LoginError({required this.error});
+}
+
+
+final class VerifyUserSuccess extends AuthState {
   final String message;
   VerifyUserSuccess({required this.message});
 }
-final class VerifyUserError extends RegisterState {
+
+final class VerifyUserError extends AuthState {
   final String error;
   VerifyUserError({required this.error});
 }
