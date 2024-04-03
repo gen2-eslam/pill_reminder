@@ -42,7 +42,7 @@ abstract class AppRouter {
         );
       case Routes.otpScreen:
         return MaterialPageRoute(
-          builder: (_) => const OtpScreen(text: "romancawy12@gmail.com"),
+          builder: (_) => const OtpScreen(),
         );
       //ResetPasswordScreen
       case Routes.resetPasswordScreen:

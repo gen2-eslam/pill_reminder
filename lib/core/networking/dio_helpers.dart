@@ -13,7 +13,7 @@ class DioHelper {
     dio = Dio(
       BaseOptions(
         //Here the URL of API.
-         baseUrl: PillReminderEndPoint.baseUrl,
+        baseUrl: PillReminderEndPoint.baseUrl,
         connectTimeout: const Duration(minutes: 4),
         receiveDataWhenStatusError: true,
 

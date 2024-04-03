@@ -1,6 +1,6 @@
 abstract class PillReminderEndPoint {
   // change the base url to your local ip with port
-  static const String baseUrl = 'http://127.0.0.1:8000/';
+  static const String baseUrl = 'http://10.0.2.2:8000/';
   static const String registerClient = 'auth/register/client';
   static const String loginClient = 'auth/login/mobile';
   static const String logoutClient = 'auth/logout';
@@ -25,6 +25,5 @@ abstract class PillReminderEndPoint {
   static String updateMedicine(String id) => 'api/medicines/$id';
   static String deleteMedicine(String id) => 'api/medicines/$id';
   static String takeMedicine(String id) => 'api/medicines/$id/take';
-    static String snozeMedicine(String id) => 'api/medicines/$id/snooze';
-
+  static String snozeMedicine(String id) => 'api/medicines/$id/snooze';
 }

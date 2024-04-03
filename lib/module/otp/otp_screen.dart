@@ -1,163 +1,111 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pill_reminder/controller/cubit/register_cubit.dart';
+import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
-import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
-import 'package:pill_reminder/core/utils/string_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_elevated_button.dart';
+import 'package:pill_reminder/core/widgets/custom_snak_bar.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
+import 'package:pill_reminder/module/otp/widgets/custom_pin_put.dart';
 
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatelessWidget {
-  final String text;
-  const OtpScreen({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: ColorsManager.offWhite,
-        leading: InkWell(
-          onTap: () {
-            context.pop();
-          },
-          child: const Icon(
-            Icons.arrow_back_ios_new,
-            color: ColorsManager.darkblue,
-          ),
-        ),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: 25.r,
-            right: 25.r,
-            top: context.deviceHeight * 0.10,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              FittedBox(
-                child: CustomText(
-                  text: "Please check your email",
-                  style: TextStyleManager.textStyle30w700,
-                  color: ColorsManager.green,
-                ),
-              ),
-              SizedBox(height: 30.h),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  text: "We’ve sent a code to ",
-                  style: TextStyleManager.textStyle15w400.copyWith(
-                    color: ColorsManager.blackWithOpacity,
-                  ),
-                  children: [
-                    TextSpan(
-                        text: "helloworld@gmail.com",
-                        style: TextStyleManager.textStyle15w500
-                            .copyWith(color: ColorsManager.darkblue))
-                  ],
-                ),
-              ),
-              SizedBox(height: 30.h),
-              const CustomPinPut(),
-              SizedBox(height: 60.h),
-              CustomElevatedButton(
-                onPressed: () {
-                  context.pushNamed(Routes.resetPasswordScreen);
-                },
-                child: CustomText(
-                  text: "Verify",
-                  style: TextStyleManager.textStyle18w600,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Container(
-        margin: EdgeInsets.symmetric(vertical: 20.h),
-        child: TextButton(
-          onPressed: () {},
-          child: CustomText(
-            text: "Send code again : 00:30",
-            style: TextStyleManager.textStyle16w400,
-            color: ColorsManager.blackWithOpacity,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CustomPinPut extends StatelessWidget {
-  const CustomPinPut({
+  const OtpScreen({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Pinput(
-      followingPinTheme: PinTheme(
-        width: context.deviceWidth * 0.15,
-        height: context.deviceWidth * 0.15,
-        textStyle: TextStyleManager.textStyle32w500
-            .copyWith(color: ColorsManager.green),
-        decoration: BoxDecoration(
-          //color: ColorsManager.yellowClr,
-          borderRadius: BorderRadius.circular(15),
-
-          border: const Border(
-            bottom: BorderSide(
-              color: ColorsManager.gray,
-              width: 0.5,
-            ),
-            left: BorderSide(
-              color: ColorsManager.gray,
-              width: 0.5,
-            ),
-            right: BorderSide(
-              color: ColorsManager.gray,
-              width: 0.5,
-            ),
-            top: BorderSide(
-              color: ColorsManager.gray,
-              width: 0.5,
+    return BlocListener<RegisterCubit, RegisterState>(
+      listener: (context, state) {
+        if (state is VerifyUserError) {
+          ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+              text: state.error, colorState: ColorState.failure));
+          // context.pushNamed(Routes.homeScreen);
+        } else if (state is VerifyUserSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            customSnackBar(text: state.message, colorState: ColorState.sucess),
+          );
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: ColorsManager.offWhite,
+          leading: InkWell(
+            onTap: () {
+              context.pop();
+            },
+            child: const Icon(
+              Icons.arrow_back_ios_new,
+              color: ColorsManager.darkblue,
             ),
           ),
         ),
-      ),
-      defaultPinTheme: PinTheme(
-        width: context.deviceWidth * 0.15,
-        height: context.deviceWidth * 0.15,
-        textStyle: TextStyleManager.textStyle32w500
-            .copyWith(color: ColorsManager.green),
-        decoration: BoxDecoration(
-          // color: ColorsManager.green,
-
-          borderRadius: BorderRadius.circular(15),
-          border: const Border(
-            bottom: BorderSide(
-              color: ColorsManager.gray,
-              width: 0.5,
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.only(
+              left: 25.r,
+              right: 25.r,
+              top: context.deviceHeight * 0.10,
             ),
-            left: BorderSide(
-              color: ColorsManager.gray,
-              width: 0.5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                FittedBox(
+                  child: CustomText(
+                    text: "Please check your email",
+                    style: TextStyleManager.textStyle30w700,
+                    color: ColorsManager.green,
+                  ),
+                ),
+                SizedBox(height: 30.h),
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    text: "We’ve sent a code to ",
+                    style: TextStyleManager.textStyle15w400.copyWith(
+                      color: ColorsManager.blackWithOpacity,
+                    ),
+                    children: [
+                      TextSpan(
+                          text: RegisterCubit.get(context).emailController.text,
+                          style: TextStyleManager.textStyle15w500
+                              .copyWith(color: ColorsManager.darkblue))
+                    ],
+                  ),
+                ),
+                SizedBox(height: 30.h),
+                const CustomPinPut(),
+                SizedBox(height: 60.h),
+                CustomElevatedButton(
+                  onPressed: () {
+                    RegisterCubit.get(context).verifyUser();
+                  },
+                  child: CustomText(
+                    text: "Verify",
+                    style: TextStyleManager.textStyle18w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
-            right: BorderSide(
-              color: ColorsManager.gray,
-              width: 0.5,
-            ),
-            top: BorderSide(
-              color: ColorsManager.gray,
-              width: 0.5,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Container(
+          margin: EdgeInsets.symmetric(vertical: 20.h),
+          child: TextButton(
+            onPressed: () {
+              RegisterCubit.get(context).resendCode();
+            },
+            child: CustomText(
+              text: "Send code again",
+              style: TextStyleManager.textStyle16w400,
+              color: ColorsManager.blackWithOpacity,
             ),
           ),
         ),
