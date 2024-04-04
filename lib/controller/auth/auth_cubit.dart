@@ -26,10 +26,9 @@ class AuthCubit extends Cubit<AuthState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   GlobalKey<FormState> forgetFormKey = GlobalKey<FormState>();
-    GlobalKey<FormState> resetFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> resetFormKey = GlobalKey<FormState>();
 
-    GlobalKey<FormState> pinFormKey = GlobalKey<FormState>();
-
+  GlobalKey<FormState> pinFormKey = GlobalKey<FormState>();
 
   bool isforgetPassword = false;
 
@@ -89,6 +88,8 @@ class AuthCubit extends Cubit<AuthState> {
       emit(LoginError(error: l.errorMessage));
     }, (r) {
       CacheService.put(key: Keys.token, value: r.personalData.token);
+      CacheService.put(key: Keys.name, value: r.personalData.name);
+
       emit(LoginSuccess(message: r.message));
     });
   }
@@ -104,6 +105,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(SendForgetPasswordUserSuccess(message: r.message));
     });
   }
+
   //resetPassword
   Future<void> resetPassword() async {
     emit(RegisterLoading());
@@ -121,5 +123,4 @@ class AuthCubit extends Cubit<AuthState> {
       emit(ResetPasswordSuccess(message: r.message));
     });
   }
-
 }

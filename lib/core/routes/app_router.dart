@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/model/medicines/medicines_model.dart';
+import 'package:pill_reminder/model/personalData/personal_data.dart';
 import 'package:pill_reminder/module/add_mdecine/add_medecine_screen.dart';
 import 'package:pill_reminder/module/edit_bill/edit_pill_screen.dart';
 import 'package:pill_reminder/module/forget_password/forget_password_screen.dart';

@@ -9,7 +9,9 @@ import 'package:pill_reminder/core/widgets/custom_error.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -46,48 +48,46 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocBuilder<ProfileCubit, ProfileState>(
-        builder: (context, state) {
-          if (state is GetPersonalDataSuccessState) {
-            return Container(
-              width: context.deviceWidth,
-              padding: EdgeInsets.all(25.r),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: context.deviceWidth * 0.2,
-                    child: Image.network(
-                        state.personalDataModel.personalData.avatar),
-                  ),
-                  SizedBox(height: 20.h),
-                  ProfileDetails(
-                    title: "Neme",
-                    value: state.personalDataModel.personalData.name,
-                  ),
-                  SizedBox(height: 20.h),
-                  ProfileDetails(
-                    title: "phone",
-                    value: state.personalDataModel.personalData.phone,
-                  ),
-                  SizedBox(height: 20.h),
-                  ProfileDetails(
-                    title: "email",
-                    value: state.personalDataModel.personalData.email,
-                  ),
-                ],
-              ),
-            );
-          } else if (state is GetPersonalDataErrorState) {
-            return CustomError(errorMessage: state.errorMessage);
-          } else {
-            return const Center(
-                child: CircularProgressIndicator(
-              color: ColorsManager.green,
-            ));
-          }
-        },
-      ),
+      body: BlocBuilder<ProfileCubit, ProfileState>(builder: (context, state) {
+        if (state is GetPersonalDataSuccessState) {
+          return Container(
+            width: context.deviceWidth,
+            padding: EdgeInsets.all(25.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: context.deviceWidth * 0.2,
+                  child: Image.network(
+                      state.personalDataModel.personalData.avatar),
+                ),
+                SizedBox(height: 20.h),
+                ProfileDetails(
+                  title: "Neme",
+                  value: state.personalDataModel.personalData.name,
+                ),
+                SizedBox(height: 20.h),
+                ProfileDetails(
+                  title: "phone",
+                  value: state.personalDataModel.personalData.phone,
+                ),
+                SizedBox(height: 20.h),
+                ProfileDetails(
+                  title: "email",
+                  value: state.personalDataModel.personalData.email,
+                ),
+              ],
+            ),
+          );
+        } else if (state is GetPersonalDataErrorState) {
+          return CustomError(errorMessage: state.errorMessage);
+        } else {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: Colors.green,
+          ));
+        }
+      }),
     );
   }
 }
