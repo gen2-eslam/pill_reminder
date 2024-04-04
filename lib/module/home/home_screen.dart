@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pill_reminder/controller/home/home_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/utils/images_manager.dart';
+import 'package:pill_reminder/core/widgets/custom_error.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 import 'package:pill_reminder/core/widgets/pill_icon.dart';
 import 'package:pill_reminder/module/home/widgets/custom_search_bar.dart';
@@ -55,49 +58,70 @@ class HomeScreen extends StatelessWidget {
                 height: 20.h,
               ),
               Expanded(
-                child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: const BoxDecoration(
-                        color: ColorsManager.lightGray,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(24),
-                        ),
-                      ),
-                      child: ListTile(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(24),
-                          ),
-                        ),
-                        onTap: () {
-                          context.pushNamed(Routes.medecineScreen);
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  buildWhen: (previous, current) {
+                    return current is MedicinesSuccess ||
+                        current is MedicinesError;
+                  },
+                  builder: (context, state) {
+                    if (state is MedicinesSuccess) {
+                      return ListView.separated(
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Container(
+                            decoration: const BoxDecoration(
+                              color: ColorsManager.lightGray,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(24),
+                              ),
+                            ),
+                            child: ListTile(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(24),
+                                ),
+                              ),
+                              onTap: () {
+                                context.pushNamed(Routes.medecineScreen,
+                                    arguments:
+                                        state.medicinesModel.data[index]);
+                              },
+                              leading: const PillIcon(),
+                              title: CustomText(
+                                textAlign: TextAlign.start,
+                                text: state.medicinesModel.data[index].name,
+                                style: TextStyleManager.textStyle15w500,
+                                color: ColorsManager.black,
+                              ),
+                              subtitle: CustomText(
+                                textAlign: TextAlign.start,
+                                text:
+                                    state.medicinesModel.data[index].startTime,
+                                style: TextStyleManager.textStyle13w500,
+                                color: ColorsManager.gray,
+                              ),
+                              trailing: const Icon(Icons.arrow_forward_ios),
+                            ),
+                          );
                         },
-                        leading: const PillIcon(),
-                        title: CustomText(
-                          textAlign: TextAlign.start,
-                          text: "Oxycodone",
-                          style: TextStyleManager.textStyle15w500,
-                          color: ColorsManager.black,
+                        separatorBuilder: (context, index) {
+                          return Divider(
+                            height: 10.r,
+                            color: Colors.transparent,
+                          );
+                        },
+                        itemCount: state.medicinesModel.data.length,
+                      );
+                    } else if (state is MedicinesError) {
+                      return CustomError(errorMessage: state.errorMessage);
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: ColorsManager.green,
                         ),
-                        subtitle: CustomText(
-                          textAlign: TextAlign.start,
-                          text: "10:00 AM . Completed",
-                          style: TextStyleManager.textStyle13w500,
-                          color: ColorsManager.gray,
-                        ),
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                      ),
-                    );
+                      );
+                    }
                   },
-                  separatorBuilder: (context, index) {
-                    return Divider(
-                      height: 10.r,
-                      color: Colors.transparent,
-                    );
-                  },
-                  itemCount: 10,
                 ),
               ),
             ],

@@ -1,5 +1,6 @@
 class AuthResponse {
   String message;
+  Map<String, dynamic>? data;
   String type;
   int code;
   bool showToast;
@@ -8,6 +9,7 @@ class AuthResponse {
     required this.message,
     required this.type,
     required this.code,
+    this.data,
     required this.showToast,
   });
 
@@ -15,6 +17,7 @@ class AuthResponse {
         message: json["message"],
         type: json["type"],
         code: json["code"],
+        data: json["data"],
         showToast: json["showToast"],
       );
 }

@@ -10,10 +10,10 @@ import 'package:pill_reminder/core/widgets/pill_icon.dart';
 import 'package:pill_reminder/module/add_mdecine/widgets/add_image.dart';
 import 'package:pill_reminder/module/add_mdecine/widgets/amount_and_how_long.dart';
 import 'package:pill_reminder/module/add_mdecine/widgets/custom_text_field.dart';
-import 'package:pill_reminder/module/medecine/widgets/title_and_value.dart';
 
 class EditPillScreen extends StatelessWidget {
   const EditPillScreen({super.key});
+  
 
   @override
   Widget build(BuildContext context) {

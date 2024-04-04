@@ -43,17 +43,20 @@ class ServerFailure extends Failures {
     switch (statusCode) {
       case 400:
         return ServerFailure(
-            errorMessage: "Bad Request: ${response.data['message']}");
+            errorMessage:
+                "Bad Request: ${(response.data["data"] as Map<String, dynamic>).values.first ?? response.data['message']}");
       case 401:
         return ServerFailure(
-            errorMessage: "Unauthorized: ${response.data['message']}");
+            errorMessage:
+                "Unauthorized: ${(response.data["data"] as Map<String, dynamic>).values.first ?? response.data['message']}");
       case 402:
         return ServerFailure(
             errorMessage:
                 "Payment Required: Payment is required to access this resource.");
       case 403:
         return ServerFailure(
-            errorMessage: "Forbidden: ${response.data['message']}");
+            errorMessage:
+                "Forbidden: ${(response.data["data"] as Map<String, dynamic>).values.first ?? response.data['message']}");
       case 404:
         return ServerFailure(
             errorMessage: "Not Found: Your request was not found.");
@@ -117,7 +120,10 @@ class ServerFailure extends Failures {
             errorMessage:
                 "Misdirected Request: The request was directed at a server that is not able to produce a response.");
       case 422:
-        return ServerFailure(errorMessage: response.data['message']);
+        return ServerFailure(
+            errorMessage:
+                (response.data["data"] as Map<String, dynamic>).values.first ??
+                    response.data['message']);
       // return ServerFailure(
       //     errorMessage:
       //         "Unprocessable Entity: The server understands the content type but cannot process the request.\n ");
