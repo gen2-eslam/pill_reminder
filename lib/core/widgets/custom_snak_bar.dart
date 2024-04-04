@@ -4,9 +4,10 @@ import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 
-
 SnackBar customSnackBar(
-    {required String text, required ColorState colorState}) {
+    {required String text,
+    required ColorState colorState,
+    SnackBarBehavior behavior = SnackBarBehavior.floating}) {
   return SnackBar(
     duration: const Duration(
       seconds: 2,
@@ -16,7 +17,7 @@ SnackBar customSnackBar(
       style: TextStyleManager.textStyle15w500,
     ),
     backgroundColor: ColorsManager.colorState(colorState),
-    behavior: SnackBarBehavior.floating,
+    behavior: behavior,
   );
 }
 

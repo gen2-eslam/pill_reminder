@@ -38,3 +38,22 @@ final class VerifyUserError extends AuthState {
   final String error;
   VerifyUserError({required this.error});
 }
+final class SendForgetPasswordUserSuccess extends AuthState {
+  final String message;
+  SendForgetPasswordUserSuccess({required this.message});
+}
+
+final class SendForgetPasswordUserError extends AuthState {
+  final String error;
+  SendForgetPasswordUserError({required this.error});
+}
+//reset password
+final class ResetPasswordSuccess extends AuthState {
+  final String message;
+  ResetPasswordSuccess({required this.message});
+}
+
+final class ResetPasswordError extends AuthState {
+  final String error;
+  ResetPasswordError({required this.error});
+}

@@ -1,9 +1,9 @@
 class VerifyUser {
   String handle;
-  int code;
+  int? code;
   VerifyUser({
     required this.handle,
-    required this.code,
+    this.code,
   });
 
   Map<String, dynamic> toJson() {

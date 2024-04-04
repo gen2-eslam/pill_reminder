@@ -1,4 +1,3 @@
-
 class PersonalDataModel {
   PersonalData personalData;
   String message;
@@ -19,7 +18,7 @@ class PersonalDataModel {
       type: json["type"],
       code: json["code"],
       showToast: json["showToast"],
-      personalData: PersonalData.fromJson(json['personalData']),
+      personalData: PersonalData.fromJson(json['data']),
     );
   }
 }

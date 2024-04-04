@@ -4,7 +4,8 @@ abstract class PillReminderEndPoint {
   static const String registerClient = 'auth/register/client';
   static const String loginClient = 'auth/login/mobile';
   static const String logoutClient = 'auth/logout';
-  static const String forgotPassword = 'auth/password/forgot_password';
+  static const String forgetPassword = 'auth/password/forgot_password';
+  static const String resetPassword = 'auth/password/reset_password';
   static const String changePassword = 'auth/password/change_password';
   static const String updateProfile = 'auth/profile';
   static const String getProfile = 'auth/profile';

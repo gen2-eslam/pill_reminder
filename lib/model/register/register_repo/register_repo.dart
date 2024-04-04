@@ -6,6 +6,7 @@ import 'package:pill_reminder/core/networking/pill_reminder_end_point.dart';
 import 'package:pill_reminder/model/personalData/personal_data.dart';
 import 'package:pill_reminder/model/register/register_model.dart';
 import 'package:pill_reminder/model/register/register_response.dart';
+import 'package:pill_reminder/model/verifiy_user/forget_password.dart';
 import 'package:pill_reminder/model/verifiy_user/verfiy_user.dart';
 
 abstract class AuthRepo {
@@ -14,8 +15,14 @@ abstract class AuthRepo {
       {required VerifyUser verifyUser});
   Future<Either<Failures, AuthResponse>> sendCodeAgain(
       {required VerifyUser verifyUser});
+
+  Future<Either<Failures, AuthResponse>> sendforgetPasswordEmail(
+      {required VerifyUser verifyUser});
   Future<Either<Failures, PersonalDataModel>> login(
       {required String email, required String password});
+
+  Future<Either<Failures, AuthResponse>> resetPassword(
+      {required ForgetPasswordModel forgetPasswordModel});
 }
 
 class RegisterRepoImpl implements AuthRepo {
@@ -73,12 +80,59 @@ class RegisterRepoImpl implements AuthRepo {
     try {
       final response = await DioHelper.postData(
           url: PillReminderEndPoint.loginClient,
-          data: {"email": email, "password": password, "fcm_token": 1234});
+          data: {"email": email, "password": password, "fcm_token": "1234"});
       return Right(PersonalDataModel.fromJson(response.data));
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {
       return Left(LocalFailures(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, AuthResponse>> sendforgetPasswordEmail(
+      {required VerifyUser verifyUser}) async {
+    try {
+      final response = await DioHelper.postData(
+          url: PillReminderEndPoint.forgetPassword,
+          data: ForgetPasswordModel.sendEmail(email: verifyUser.handle));
+      return Right(
+        AuthResponse.fromJson(response.data),
+      );
+    } on DioException catch (e) {
+      return Left(
+        ServerFailure.fromDioError(e),
+      );
+    } catch (e) {
+      return Left(
+        LocalFailures(
+          errorMessage: e.toString(),
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failures, AuthResponse>> resetPassword(
+      {required ForgetPasswordModel forgetPasswordModel}) async {
+    try {
+      final response = await DioHelper.postData(
+        url: PillReminderEndPoint.resetPassword,
+        data: forgetPasswordModel.toJson(),
+      );
+      return Right(
+        AuthResponse.fromJson(response.data),
+      );
+    } on DioException catch (e) {
+      return Left(
+        ServerFailure.fromDioError(e),
+      );
+    } catch (e) {
+      return Left(
+        LocalFailures(
+          errorMessage: e.toString(),
+        ),
+      );
     }
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
@@ -20,6 +22,10 @@ class LoginButtons extends StatelessWidget {
           alignment: AlignmentDirectional.centerEnd,
           child: TextButton(
             onPressed: () {
+              AuthCubit.get(context).pinPutController.clear();
+              AuthCubit.get(context).emailController.clear();
+              AuthCubit.get(context).passwordController.clear();
+              AuthCubit.get(context).isforgetPassword = true;
               context.pushNamed(Routes.forgetScreen);
             },
             child: CustomText(
@@ -30,15 +36,33 @@ class LoginButtons extends StatelessWidget {
           ),
         ),
         SizedBox(height: 30.h),
-        CustomElevatedButton(
-          onPressed: () {
-            context.pushNamed(Routes.homeScreen);
+        BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            if (state is LoginLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: ColorsManager.green,
+                ),
+              );
+            } else {
+              return CustomElevatedButton(
+                onPressed: () {
+                  if (AuthCubit.get(context)
+                      .loginFormKey
+                      .currentState!
+                      .validate()) {
+                    AuthCubit.get(context).login();
+                    context.pushNamed(Routes.homeScreen);
+                  }
+                },
+                child: CustomText(
+                  text: "Login",
+                  style: TextStyleManager.textStyle18w600,
+                  color: Colors.white,
+                ),
+              );
+            }
           },
-          child: CustomText(
-            text: "Login",
-            style: TextStyleManager.textStyle18w600,
-            color: Colors.white,
-          ),
         ),
       ],
     );

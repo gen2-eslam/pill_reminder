@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_password_form_fieild.dart';
 import 'package:pill_reminder/core/widgets/custom_text_form_fieild.dart';
@@ -12,22 +13,38 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: AuthCubit.get(context).loginFormKey,
       child: Column(
         children: [
-          const CustomTextFormFeild(
+          CustomTextFormFeild(
             title: "Email Address",
+            keyboardType: TextInputType.emailAddress,
+            controller: AuthCubit.get(context).emailController,
             hintText: "Enter your email address",
-            texytStyle: TextStyle(
+            texytStyle: const TextStyle(
               color: ColorsManager.darkblue,
             ),
+            validator: (p0) {
+              if (p0!.isEmpty) {
+                return "please enter your email";
+              }
+              return null;
+            },
           ),
           SizedBox(height: 30.h),
-          const CustomPasswordFormFeild(
+          CustomPasswordFormFeild(
             title: "Password",
+            controller: AuthCubit.get(context).passwordController,
             hintText: "must be 8 characters",
-            texytStyle: TextStyle(
-              color: ColorsManager.green,
+            texytStyle: const TextStyle(
+              color: ColorsManager.darkblue,
             ),
+            validator: (p0) {
+              if (p0!.isEmpty) {
+                return "please enter your password";
+              }
+              return null;
+            },
           ),
         ],
       ),

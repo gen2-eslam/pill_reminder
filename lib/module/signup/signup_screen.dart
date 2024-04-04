@@ -21,15 +21,13 @@ class SignupScreen extends StatelessWidget {
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
-              text: state.message, colorState: ColorState.sucess));
-          context.pushNamed(
-            Routes.otpScreen,
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+          //     text: state.message, colorState: ColorState.sucess));
+          context.pushNamed(Routes.otpScreen, arguments: true);
         } else if (state is RegisterError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            customSnackBar(text: state.error, colorState: ColorState.failure),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   customSnackBar(text: state.error, colorState: ColorState.failure),
+          // );
         }
       },
       child: Scaffold(

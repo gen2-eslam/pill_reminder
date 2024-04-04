@@ -4,14 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
+import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_elevated_button.dart';
 import 'package:pill_reminder/core/widgets/custom_snak_bar.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 import 'package:pill_reminder/module/otp/widgets/custom_pin_put.dart';
-
-import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({
@@ -25,11 +24,18 @@ class OtpScreen extends StatelessWidget {
         if (state is VerifyUserError) {
           ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
               text: state.error, colorState: ColorState.failure));
-          // context.pushNamed(Routes.homeScreen);
-        } else if (state is VerifyUserSuccess) {
+        }
+        if (state is VerifyUserSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             customSnackBar(text: state.message, colorState: ColorState.sucess),
           );
+          if (!AuthCubit.get(context).isforgetPassword) {
+            AuthCubit.get(context).login().then((value) {
+              context.pushNamed(Routes.homeScreen);
+            });
+          } else {
+            context.pushNamed(Routes.successResetPasswordScreen);
+          }
         }
       },
       child: Scaffold(
@@ -37,6 +43,7 @@ class OtpScreen extends StatelessWidget {
           backgroundColor: ColorsManager.offWhite,
           leading: InkWell(
             onTap: () {
+              AuthCubit.get(context).pinPutController.clear();
               context.pop();
             },
             child: const Icon(
@@ -83,7 +90,16 @@ class OtpScreen extends StatelessWidget {
                 SizedBox(height: 60.h),
                 CustomElevatedButton(
                   onPressed: () {
-                    AuthCubit.get(context).verifyUser();
+                    if (AuthCubit.get(context)
+                        .pinFormKey
+                        .currentState!
+                        .validate()) {
+                      if (!AuthCubit.get(context).isforgetPassword) {
+                        AuthCubit.get(context).verifyUser();
+                      } else {
+                        context.pushNamed(Routes.resetPasswordScreen);
+                      }
+                    }
                   },
                   child: CustomText(
                     text: "Verify",
