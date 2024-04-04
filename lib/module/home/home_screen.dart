@@ -6,12 +6,9 @@ import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
-import 'package:pill_reminder/core/utils/images_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_error.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 import 'package:pill_reminder/core/widgets/pill_icon.dart';
-import 'package:pill_reminder/module/home/widgets/custom_search_bar.dart';
-import 'package:pill_reminder/module/medecine/medecine_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,25 +23,44 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CustomSearchBar(),
-              SizedBox(
-                height: 20.h,
-              ),
-              RichText(
-                text: TextSpan(
-                  text: "Hello,\n",
-                  style: TextStyleManager.textStyle28w600.copyWith(
-                    color: ColorsManager.blackWithOpacity,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: "Kathryn",
-                      style: TextStyleManager.textStyle28w400.copyWith(
-                        color: ColorsManager.black,
+              Row(
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: "Hello,\n",
+                      style: TextStyleManager.textStyle28w600.copyWith(
+                        color: ColorsManager.blackWithOpacity,
                       ),
+                      children: [
+                        TextSpan(
+                          text: "Kathryn",
+                          style: TextStyleManager.textStyle28w400.copyWith(
+                            color: ColorsManager.black,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      context.pushNamed(Routes.notificationScreen);
+                    },
+                    icon: const Icon(
+                      Icons.notifications,
+                      color: ColorsManager.green,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      context.pushNamed(Routes.profileScreen);
+                    },
+                    icon: const Icon(
+                      Icons.person,
+                      color: ColorsManager.green,
+                    ),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 20.h,

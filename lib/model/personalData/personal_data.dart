@@ -31,7 +31,7 @@ class PersonalData {
   String email;
   String avatar;
   String type;
-  String token;
+  String? token;
   PersonalData({
     required this.id,
     required this.name,
@@ -40,7 +40,7 @@ class PersonalData {
     required this.email,
     required this.avatar,
     required this.type,
-    required this.token,
+    this.token,
   });
   factory PersonalData.fromJson(Map<String, dynamic> json) {
     return PersonalData(

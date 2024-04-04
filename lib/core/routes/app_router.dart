@@ -9,7 +9,9 @@ import 'package:pill_reminder/module/history/history_screen.dart';
 import 'package:pill_reminder/module/home/home_screen.dart';
 import 'package:pill_reminder/module/login/login_screen.dart';
 import 'package:pill_reminder/module/medecine/medecine_screen.dart';
+import 'package:pill_reminder/module/notification/notification_screen.dart';
 import 'package:pill_reminder/module/otp/otp_screen.dart';
+import 'package:pill_reminder/module/profile/profile_screen.dart';
 import 'package:pill_reminder/module/reset_password/reset_password_screen.dart';
 import 'package:pill_reminder/module/reset_password/sucess_reset_password_screen.dart';
 import 'package:pill_reminder/module/signup/signup_screen.dart';
@@ -61,7 +63,7 @@ abstract class AppRouter {
         );
       case Routes.medecineScreen:
         return MaterialPageRoute(
-          builder: (_) =>  MedecineScreen(medicines: arguments as Medicines),
+          builder: (_) => MedecineScreen(medicines: arguments as Medicines),
         );
       case Routes.historyScreen:
         return MaterialPageRoute(
@@ -74,6 +76,15 @@ abstract class AppRouter {
       case Routes.editPillScreen:
         return MaterialPageRoute(
           builder: (_) => const EditPillScreen(),
+        );
+      //notificationScreen
+      case Routes.notificationScreen:
+        return MaterialPageRoute(
+          builder: (_) => const NotificationScreen(),
+        );
+      case Routes.profileScreen:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileScreen(),
         );
       default:
         return MaterialPageRoute(

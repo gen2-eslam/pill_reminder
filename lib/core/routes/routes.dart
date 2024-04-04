@@ -13,4 +13,9 @@ abstract class Routes {
   static const String detailsHistoryScreen = "/detailsHistoryScreen";
   //EditPillScreen
   static const String editPillScreen = "/editPillScreen";
+  //NotificationScreen
+  static const String notificationScreen = "/notificationScreen";
+  //profileScreen
+  static const String profileScreen = "/profileScreen";
+
 }
