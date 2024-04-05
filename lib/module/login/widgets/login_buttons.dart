@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/auth/auth_cubit.dart';
+import 'package:pill_reminder/controller/login/login_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
@@ -22,10 +22,7 @@ class LoginButtons extends StatelessWidget {
           alignment: AlignmentDirectional.centerEnd,
           child: TextButton(
             onPressed: () {
-              AuthCubit.get(context).pinPutController.clear();
-              AuthCubit.get(context).emailController.clear();
-              AuthCubit.get(context).passwordController.clear();
-              AuthCubit.get(context).isforgetPassword = true;
+              LoginCubit.get(context).clearData();
               context.pushNamed(Routes.forgetScreen);
             },
             child: CustomText(
@@ -36,7 +33,7 @@ class LoginButtons extends StatelessWidget {
           ),
         ),
         SizedBox(height: 30.h),
-        BlocBuilder<AuthCubit, AuthState>(
+        BlocBuilder<LoginCubit, LoginState>(
           builder: (context, state) {
             if (state is LoginLoading) {
               return const Center(
@@ -47,12 +44,12 @@ class LoginButtons extends StatelessWidget {
             } else {
               return CustomElevatedButton(
                 onPressed: () {
-                  if (AuthCubit.get(context)
+                  if (LoginCubit.get(context)
                       .loginFormKey
                       .currentState!
                       .validate()) {
-                    AuthCubit.get(context).login();
-                    context.pushNamed(Routes.homeScreen);
+                        
+                    LoginCubit.get(context).login();
                   }
                 },
                 child: CustomText(

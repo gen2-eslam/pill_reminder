@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pill_reminder/controller/auth/auth_cubit.dart';
+import 'package:pill_reminder/controller/otp_password/otp_password_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
@@ -13,9 +14,9 @@ class CustomPinPut extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: AuthCubit.get(context).pinFormKey,
+      key: OtpPasswordCubit.get(context).formKey,
       child: Pinput(
-        controller: AuthCubit.get(context).pinPutController,
+        controller: OtpPasswordCubit.get(context).pinPutController,
         validator: (value) {
           if (value!.isEmpty) {
             return "please enter your pin";

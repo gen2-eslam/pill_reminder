@@ -2,25 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pill_reminder/controller/auth/auth_cubit.dart';
+import 'package:pill_reminder/controller/reset_password/reset_password_cubit.dart';
+import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_elevated_button.dart';
 import 'package:pill_reminder/core/widgets/custom_password_form_fieild.dart';
+import 'package:pill_reminder/core/widgets/custom_snak_bar.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+  final Map<int, dynamic> data;
+  // 0 -> email // 1 ->OTP
+  const ResetPasswordScreen({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        backgroundColor: ColorsManager.offWhite,
+        backgroundColor: ColorsManager.white,
         leading: InkWell(
           onTap: () {
-            AuthCubit.get(context).pinPutController.clear();
             context.pop();
           },
           child: const Icon(
@@ -29,10 +34,15 @@ class ResetPasswordScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocListener<ResetPasswordCubit, ResetPasswordState>(
         listener: (context, state) {
           if (state is ResetPasswordSuccess) {
             context.pushNamed(Routes.successResetPasswordScreen);
+          }
+          if (state is ResetPasswordError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              customSnackBar(text: state.error, colorState: ColorState.failure),
+            );
           }
         },
         child: SafeArea(
@@ -43,7 +53,7 @@ class ResetPasswordScreen extends StatelessWidget {
               top: context.deviceHeight * 0.10,
             ),
             child: Form(
-              key: AuthCubit.get(context).resetFormKey,
+              key: ResetPasswordCubit.get(context).formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -62,7 +72,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       ),
                       children: [
                         TextSpan(
-                            text: AuthCubit.get(context).emailController.text,
+                            text: data[0],
                             style: TextStyleManager.textStyle15w500
                                 .copyWith(color: ColorsManager.darkblue))
                       ],
@@ -72,7 +82,8 @@ class ResetPasswordScreen extends StatelessWidget {
                   CustomPasswordFormFeild(
                     title: "New password",
                     keyboardType: TextInputType.visiblePassword,
-                    controller: AuthCubit.get(context).passwordController,
+                    controller:
+                        ResetPasswordCubit.get(context).passwordController,
                     hintText: "must be 8 characters",
                     texytStyle: const TextStyle(
                       color: ColorsManager.darkblue,
@@ -89,8 +100,8 @@ class ResetPasswordScreen extends StatelessWidget {
                     title: "Confirm new password",
                     hintText: "repeat password",
                     keyboardType: TextInputType.visiblePassword,
-                    controller:
-                        AuthCubit.get(context).confirmPasswordController,
+                    controller: ResetPasswordCubit.get(context)
+                        .confirmPasswordController,
                     texytStyle: const TextStyle(
                       color: ColorsManager.darkblue,
                     ),
@@ -99,7 +110,9 @@ class ResetPasswordScreen extends StatelessWidget {
                         return 'password not match';
                       }
                       if (p0 !=
-                          AuthCubit.get(context).passwordController.text) {
+                          ResetPasswordCubit.get(context)
+                              .passwordController
+                              .text) {
                         return 'password not match';
                       }
                       return null;
@@ -108,11 +121,14 @@ class ResetPasswordScreen extends StatelessWidget {
                   SizedBox(height: 60.h),
                   CustomElevatedButton(
                     onPressed: () {
-                      if (AuthCubit.get(context)
-                          .resetFormKey
+                      if (ResetPasswordCubit.get(context)
+                          .formKey
                           .currentState!
                           .validate()) {
-                        AuthCubit.get(context).resetPassword();
+                        FocusScope.of(context).unfocus();
+
+                        ResetPasswordCubit.get(context)
+                            .resetPassword(email: data[0], code: data[1]);
                       }
                     },
                     child: CustomText(

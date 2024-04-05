@@ -7,7 +7,7 @@ import 'package:pill_reminder/core/widgets/custom_text.dart';
 SnackBar customSnackBar(
     {required String text,
     required ColorState colorState,
-    SnackBarBehavior behavior = SnackBarBehavior.floating}) {
+    SnackBarBehavior behavior = SnackBarBehavior.fixed}) {
   return SnackBar(
     duration: const Duration(
       seconds: 2,

@@ -11,7 +11,7 @@ class ForgetPasswordModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['email'] = email;
+    data['handle'] = email;
     data['password'] = password;
     data['password_confirmation'] = confirmPassword;
     data['code'] = code;

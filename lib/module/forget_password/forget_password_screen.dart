@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/auth/auth_cubit.dart';
+import 'package:pill_reminder/controller/forget_password/forget_password_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
@@ -20,12 +20,10 @@ class ForgetPasswordScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorsManager.offWhite,
+        backgroundColor: ColorsManager.white,
         leading: InkWell(
           onTap: () {
-            AuthCubit.get(context).emailController.clear();
-            AuthCubit.get(context).isforgetPassword = false;
-
+            ForgetPasswordCubit.get(context).clearData();
             context.pop();
           },
           child: const Icon(
@@ -34,29 +32,20 @@ class ForgetPasswordScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocListener<ForgetPasswordCubit, ForgetPasswordState>(
         listener: (context, state) {
           FocusScope.of(context).unfocus();
           if (state is SendForgetPasswordUserSuccess) {
-            context.pushNamed(Routes.otpScreen, arguments: false);
+            ScaffoldMessenger.of(context).showSnackBar(
+              customSnackBar(
+                  text: state.message, colorState: ColorState.sucess),
+            );
+            context.pushNamed(Routes.otpScreen,
+                arguments: {0: state.email, 1: true});
           }
           if (state is SendForgetPasswordUserError) {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: CustomText(
-                  text: state.error,
-                  style: TextStyleManager.textStyle16w400,
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Ok"),
-                  ),
-                ],
-              ),
+            ScaffoldMessenger.of(context).showSnackBar(
+              customSnackBar(text: state.error, colorState: ColorState.failure),
             );
           }
         },
@@ -64,7 +53,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(25.r),
             child: Form(
-              key: AuthCubit.get(context).forgetFormKey,
+              key: ForgetPasswordCubit.get(context).forgetFormKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -91,7 +80,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                     title: "Email Address",
                     hintText: "Enter your email address",
                     keyboardType: TextInputType.emailAddress,
-                    controller: AuthCubit.get(context).emailController,
+                    controller:
+                        ForgetPasswordCubit.get(context).emailController,
                     texytStyle: const TextStyle(
                       color: ColorsManager.darkblue,
                     ),
@@ -107,11 +97,12 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ),
                   CustomElevatedButton(
                     onPressed: () {
-                      if (AuthCubit.get(context)
+                      if (ForgetPasswordCubit.get(context)
                           .forgetFormKey
                           .currentState!
                           .validate()) {
-                        AuthCubit.get(context).sendforgetPasswordEmail();
+                        ForgetPasswordCubit.get(context)
+                            .sendforgetPasswordEmail();
                       }
                     },
                     child: CustomText(
@@ -140,8 +131,8 @@ class ForgetPasswordScreen extends StatelessWidget {
               TextSpan(
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
+                      ForgetPasswordCubit.get(context).clearData();
                       context.pop();
-                      // context.pushNamed(R.kSignUpView);
                     },
                   text: "Log in",
                   style: TextStyleManager.textStyle15w500

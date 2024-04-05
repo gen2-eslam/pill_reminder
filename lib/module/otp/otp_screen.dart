@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pill_reminder/controller/auth/auth_cubit.dart';
+import 'package:pill_reminder/controller/otp_password/otp_password_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
@@ -13,13 +14,17 @@ import 'package:pill_reminder/core/widgets/custom_text.dart';
 import 'package:pill_reminder/module/otp/widgets/custom_pin_put.dart';
 
 class OtpScreen extends StatelessWidget {
+  final Map<int, dynamic> otp;
+  // otp[0] is Email
+  // otp[1] is forget password
   const OtpScreen({
     super.key,
+    required this.otp,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocListener<OtpPasswordCubit, OtpPasswordState>(
       listener: (context, state) {
         if (state is VerifyUserError) {
           ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
@@ -29,13 +34,6 @@ class OtpScreen extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             customSnackBar(text: state.message, colorState: ColorState.sucess),
           );
-          if (!AuthCubit.get(context).isforgetPassword) {
-            AuthCubit.get(context).login().then((value) {
-              context.pushNamed(Routes.homeScreen);
-            });
-          } else {
-            context.pushNamed(Routes.successResetPasswordScreen);
-          }
         }
       },
       child: Scaffold(
@@ -43,7 +41,7 @@ class OtpScreen extends StatelessWidget {
           backgroundColor: ColorsManager.offWhite,
           leading: InkWell(
             onTap: () {
-              AuthCubit.get(context).pinPutController.clear();
+              OtpPasswordCubit.get(context).pinPutController.clear();
               context.pop();
             },
             child: const Icon(
@@ -79,7 +77,7 @@ class OtpScreen extends StatelessWidget {
                     ),
                     children: [
                       TextSpan(
-                          text: AuthCubit.get(context).emailController.text,
+                          text: otp[0],
                           style: TextStyleManager.textStyle15w500
                               .copyWith(color: ColorsManager.darkblue))
                     ],
@@ -90,15 +88,18 @@ class OtpScreen extends StatelessWidget {
                 SizedBox(height: 60.h),
                 CustomElevatedButton(
                   onPressed: () {
-                    if (AuthCubit.get(context)
-                        .pinFormKey
+                    if (OtpPasswordCubit.get(context)
+                        .formKey
                         .currentState!
                         .validate()) {
-                      if (!AuthCubit.get(context).isforgetPassword) {
-                        AuthCubit.get(context).verifyUser();
-                      } else {
-                        context.pushNamed(Routes.resetPasswordScreen);
+                      if (otp[1]) {
+                        context
+                            .pushNamed(Routes.resetPasswordScreen, arguments: {
+                          0: otp[0],
+                          1: OtpPasswordCubit.get(context).pinPutController.text
+                        });
                       }
+                      OtpPasswordCubit.get(context).clearData();
                     }
                   },
                   child: CustomText(
@@ -112,19 +113,21 @@ class OtpScreen extends StatelessWidget {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Container(
-          margin: EdgeInsets.symmetric(vertical: 20.h),
-          child: TextButton(
-            onPressed: () {
-              AuthCubit.get(context).resendCode();
-            },
-            child: CustomText(
-              text: "Send code again",
-              style: TextStyleManager.textStyle16w400,
-              color: ColorsManager.blackWithOpacity,
-            ),
-          ),
-        ),
+        floatingActionButton: otp[1]
+            ? null
+            : Container(
+                margin: EdgeInsets.symmetric(vertical: 20.h),
+                child: TextButton(
+                  onPressed: () {
+                    OtpPasswordCubit.get(context).resendCode(email: otp[0]);
+                  },
+                  child: CustomText(
+                    text: "Send code again",
+                    style: TextStyleManager.textStyle16w400,
+                    color: ColorsManager.blackWithOpacity,
+                  ),
+                ),
+              ),
       ),
     );
   }

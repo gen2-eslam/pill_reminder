@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pill_reminder/controller/forget_password/forget_password_cubit.dart';
+import 'package:pill_reminder/controller/login/login_cubit.dart';
+import 'package:pill_reminder/controller/otp_password/otp_password_cubit.dart';
+import 'package:pill_reminder/controller/reset_password/reset_password_cubit.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/model/medicines/medicines_model.dart';
-import 'package:pill_reminder/model/personalData/personal_data.dart';
+import 'package:pill_reminder/model/register/register_repo/register_repo.dart';
 import 'package:pill_reminder/module/add_mdecine/add_medecine_screen.dart';
 import 'package:pill_reminder/module/edit_bill/edit_pill_screen.dart';
 import 'package:pill_reminder/module/forget_password/forget_password_screen.dart';
@@ -29,7 +34,10 @@ abstract class AppRouter {
       //   );
       case Routes.loginScreen:
         return MaterialPageRoute(
-          builder: (_) => const LoginScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) => LoginCubit(loginRepo: AuthRepoImpl()),
+            child: const LoginScreen(),
+          ),
         );
       case Routes.homeScreen:
         return MaterialPageRoute(
@@ -42,16 +50,27 @@ abstract class AppRouter {
         );
       case Routes.forgetScreen:
         return MaterialPageRoute(
-          builder: (_) => const ForgetPasswordScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) => ForgetPasswordCubit(authRepo: AuthRepoImpl()),
+            child: const ForgetPasswordScreen(),
+          ),
         );
       case Routes.otpScreen:
         return MaterialPageRoute(
-          builder: (_) => const OtpScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                OtpPasswordCubit(otpPasswordRepo: AuthRepoImpl()),
+            child: OtpScreen(otp: arguments as Map<int, dynamic>),
+          ),
         );
       //ResetPasswordScreen
       case Routes.resetPasswordScreen:
         return MaterialPageRoute(
-          builder: (_) => const ResetPasswordScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                ResetPasswordCubit(resetPasswordRepo: AuthRepoImpl()),
+            child: ResetPasswordScreen(data: arguments as Map<int, dynamic>),
+          ),
         );
       case Routes.successResetPasswordScreen:
         return MaterialPageRoute(

@@ -25,7 +25,7 @@ abstract class AuthRepo {
       {required ForgetPasswordModel forgetPasswordModel});
 }
 
-class RegisterRepoImpl implements AuthRepo {
+class AuthRepoImpl implements AuthRepo {
   @override
   Future<Either<Failures, AuthResponse>> register(
       RegisterModel registerModel) async {

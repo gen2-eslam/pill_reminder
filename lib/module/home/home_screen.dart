@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pill_reminder/controller/home/home_cubit.dart';
-import 'package:pill_reminder/controller/profile/profile_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/helper/keys.dart';
 import 'package:pill_reminder/core/routes/routes.dart';

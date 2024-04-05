@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => AuthCubit(
-              registerRepo: RegisterRepoImpl(),
+              registerRepo: AuthRepoImpl(),
             ),
           ),
           BlocProvider(
