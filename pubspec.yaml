@@ -38,6 +38,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   flutter_svg: ^2.0.9
   get_it: ^7.6.4
+  image_picker: ^1.0.7
   lottie: ^3.1.0
   omni_datetime_picker: ^1.0.9
   pinput: ^4.0.0
