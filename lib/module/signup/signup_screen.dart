@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/auth/auth_cubit.dart';
+import 'package:pill_reminder/controller/register/register_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
@@ -18,16 +18,19 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
-          // ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
-          //     text: state.message, colorState: ColorState.sucess));
-          context.pushNamed(Routes.otpScreen, arguments: true);
+          ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+              text: state.message, colorState: ColorState.sucess));
+          context.pushNamed(Routes.otpScreen, arguments: {
+            0: RegisterCubit.get(context).emailController.text,
+            1: false
+          });
         } else if (state is RegisterError) {
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   customSnackBar(text: state.error, colorState: ColorState.failure),
-          // );
+          ScaffoldMessenger.of(context).showSnackBar(
+            customSnackBar(text: state.error, colorState: ColorState.failure),
+          );
         }
       },
       child: Scaffold(
@@ -47,7 +50,7 @@ class SignupScreen extends StatelessWidget {
                 SizedBox(height: 30.h),
                 const SignupFormWidget(),
                 SizedBox(height: 30.h),
-                BlocBuilder<AuthCubit, AuthState>(
+                BlocBuilder<RegisterCubit, RegisterState>(
                   builder: (context, state) {
                     if (state is RegisterLoading) {
                       return const Center(
@@ -58,11 +61,11 @@ class SignupScreen extends StatelessWidget {
                     }
                     return CustomElevatedButton(
                       onPressed: () {
-                        if (AuthCubit.get(context)
+                        if (RegisterCubit.get(context)
                             .formKey
                             .currentState!
                             .validate()) {
-                          context.read<AuthCubit>().register();
+                          context.read<RegisterCubit>().register();
                         }
                       },
                       child: CustomText(

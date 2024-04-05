@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/controller/reset_password/reset_password_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';

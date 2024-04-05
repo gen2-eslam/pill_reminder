@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/controller/otp_password/otp_password_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pill_reminder/controller/forget_password/forget_password_cubit.dart';
 import 'package:pill_reminder/controller/login/login_cubit.dart';
 import 'package:pill_reminder/controller/otp_password/otp_password_cubit.dart';
+import 'package:pill_reminder/controller/register/register_cubit.dart';
 import 'package:pill_reminder/controller/reset_password/reset_password_cubit.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/model/medicines/medicines_model.dart';
@@ -46,7 +47,12 @@ abstract class AppRouter {
 
       case Routes.signUpScreen:
         return MaterialPageRoute(
-          builder: (_) => const SignupScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) => RegisterCubit(
+              registerRepo: AuthRepoImpl(),
+            ),
+            child: const SignupScreen(),
+          ),
         );
       case Routes.forgetScreen:
         return MaterialPageRoute(

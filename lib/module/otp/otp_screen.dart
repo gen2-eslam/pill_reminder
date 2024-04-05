@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/auth/auth_cubit.dart';
 import 'package:pill_reminder/controller/otp_password/otp_password_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
@@ -34,6 +33,8 @@ class OtpScreen extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             customSnackBar(text: state.message, colorState: ColorState.sucess),
           );
+          context.pushNamedAndRemoveUntil(Routes.loginScreen,
+              predicate: (r) => false);
         }
       },
       child: Scaffold(
@@ -98,6 +99,8 @@ class OtpScreen extends StatelessWidget {
                           0: otp[0],
                           1: OtpPasswordCubit.get(context).pinPutController.text
                         });
+                      } else {
+                        OtpPasswordCubit.get(context).verifyUser(email: otp[0]);
                       }
                       OtpPasswordCubit.get(context).clearData();
                     }

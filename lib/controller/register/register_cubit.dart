@@ -5,12 +5,12 @@ import 'package:pill_reminder/model/register/register_repo/register_repo.dart';
 import 'package:pill_reminder/model/verifiy_user/forget_password.dart';
 import 'package:pill_reminder/model/verifiy_user/verfiy_user.dart';
 
-part 'auth_state.dart';
+part 'register_state.dart';
 
-class AuthCubit extends Cubit<AuthState> {
-  AuthCubit({required this.registerRepo}) : super(RegisterInitial());
+class RegisterCubit extends Cubit<RegisterState> {
+  RegisterCubit({required this.registerRepo}) : super(RegisterInitial());
 
-  static AuthCubit get(context) => BlocProvider.of(context);
+  static RegisterCubit get(context) => BlocProvider.of(context);
   AuthRepo registerRepo;
 
   TextEditingController emailController = TextEditingController();
@@ -22,10 +22,6 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController pinPutFprgetController = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  GlobalKey<FormState> resetFormKey = GlobalKey<FormState>();
-
-  GlobalKey<FormState> pinFormKey = GlobalKey<FormState>();
-
 
   Future<void> register() async {
     emit(RegisterLoading());
@@ -45,13 +41,4 @@ class AuthCubit extends Cubit<AuthState> {
       emit(RegisterSuccess(message: r.message));
     });
   }
-
-
-  //login
-
-
- 
-
-  //resetPassword
-
 }
