@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pill_reminder/controller/profile/profile_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
+import 'package:pill_reminder/core/routes/routes.dart';
+import 'package:pill_reminder/core/services/cache_service.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_error.dart';
@@ -31,7 +33,11 @@ class ProfileScreen extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              CacheService.clearData();
+              context.pushNamedAndRemoveUntil(Routes.loginScreen,
+                  predicate: (r) => false);
+            },
             icon: const Icon(
               Icons.exit_to_app,
               color: ColorsManager.redClr,

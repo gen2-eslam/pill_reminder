@@ -6,6 +6,7 @@ import 'package:pill_reminder/controller/home/home_cubit.dart';
 import 'package:pill_reminder/controller/medicines/medicines_cubit.dart';
 import 'package:pill_reminder/controller/profile/profile_cubit.dart';
 import 'package:pill_reminder/core/dependency_injection/dependency_injection.dart';
+import 'package:pill_reminder/core/helper/keys.dart';
 import 'package:pill_reminder/core/networking/dio_helpers.dart';
 import 'package:pill_reminder/core/routes/app_router.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
@@ -30,8 +31,24 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String? initialRoute = Routes.loginScreen;
+
+  @override
+  void initState() {
+    initialRoute = CacheService.getDataString(key: Keys.token) != null
+        ? Routes.homeScreen
+        : Routes.loginScreen;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +76,7 @@ class MyApp extends StatelessWidget {
           title: StringManager.appName,
           debugShowCheckedModeBanner: false,
           theme: ThemeApp.light(context),
-          initialRoute: Routes.loginScreen,
+          initialRoute: initialRoute,
           onGenerateRoute: AppRouter.generateRoute,
         ),
       ),

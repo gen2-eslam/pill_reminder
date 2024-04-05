@@ -87,14 +87,78 @@ class MedecineScreen extends StatelessWidget {
                   prefixIcon: const PillIcon(),
                 ),
                 SizedBox(height: 20.h),
-                TitleWithValue(
-                  title: "Amount take",
-                  value: medicines.count.toString(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: CustomTextFeild(
+                        title: "Types of medicines",
+                        enabled: true,
+                        hintText: medicines.type,
+                        prefixIcon: const PillIcon(),
+                      ),
+                    ),
+                    SizedBox(width: 20.w),
+                    Expanded(
+                      child: CustomTextFeild(
+                        title: "count",
+                        enabled: true,
+                        hintText: medicines.count.toString(),
+                        prefixIcon: const PillIcon(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: CustomTextFeild(
+                        title: "taken count",
+                        enabled: true,
+                        hintText: medicines.takenCount.toString(),
+                        prefixIcon: const PillIcon(),
+                      ),
+                    ),
+                    SizedBox(width: 20.w),
+                    Expanded(
+                      child: CustomTextFeild(
+                        title: "frequency",
+                        enabled: true,
+                        hintText: medicines.frequency,
+                        prefixIcon: const PillIcon(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: CustomTextFeild(
+                        title: "before or after eating",
+                        enabled: true,
+                        hintText: medicines.beforeEating ? "before" : "after",
+                        prefixIcon: const PillIcon(),
+                      ),
+                    ),
+                    SizedBox(width: 20.w),
+                    Expanded(
+                      child: CustomTextFeild(
+                        title: "should reminder",
+                        enabled: true,
+                        hintText: medicines.shouldReminder ? "yes" : "no",
+                        prefixIcon: const PillIcon(),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20.h),
                 TitleWithValue(
-                  title: "Remaining medication",
-                  value: medicines.frequency,
+                  title: "dosage",
+                  value: medicines.dosage,
                 ),
                 SizedBox(height: 20.h),
                 TitleWithValue(
@@ -102,56 +166,73 @@ class MedecineScreen extends StatelessWidget {
                   value: medicines.startTime,
                 ),
                 SizedBox(height: 20.h),
-                CustomText(
-                  text: " History",
-                  style: TextStyleManager.textStyle15w500,
-                ),
-                SizedBox(height: 20.h),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: ColorsManager.lightGray,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(24),
-                    ),
-                  ),
-                  child: ListTile(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(24),
-                      ),
-                    ),
-                    onTap: () {
-                      context.pushNamed(Routes.historyScreen);
-                    },
-                    leading: Image.asset(ImagesManager.pill, height: 50.r),
-                    title: CustomText(
-                      textAlign: TextAlign.start,
-                      text: "Oxycodone",
-                      style: TextStyleManager.textStyle15w500,
-                      color: ColorsManager.black,
-                    ),
-                    subtitle: CustomText(
-                      textAlign: TextAlign.start,
-                      text: "10:00 AM ",
-                      style: TextStyleManager.textStyle13w500,
-                      color: ColorsManager.gray,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                CustomElevatedButton(
-                  onPressed: () {
-                    MedicinesCubit.get(context).takeMedicines(id: medicines.id);
-                  },
-                  child: CustomText(
-                    text: "Take",
-                    style: TextStyleManager.textStyle18w600,
-                    color: Colors.white,
-                  ),
-                ),
+                // CustomText(
+                //   text: " History",
+                //   style: TextStyleManager.textStyle15w500,
+                // ),
+                // SizedBox(height: 20.h),
+                // Container(
+                //   decoration: const BoxDecoration(
+                //     color: ColorsManager.lightGray,
+                //     borderRadius: BorderRadius.all(
+                //       Radius.circular(24),
+                //     ),
+                //   ),
+                //   child: ListTile(
+                //     shape: const RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.all(
+                //         Radius.circular(24),
+                //       ),
+                //     ),
+                //     onTap: () {
+                //       context.pushNamed(Routes.historyScreen);
+                //     },
+                //     leading: Image.asset(ImagesManager.pill, height: 50.r),
+                //     title: CustomText(
+                //       textAlign: TextAlign.start,
+                //       text: "Oxycodone",
+                //       style: TextStyleManager.textStyle15w500,
+                //       color: ColorsManager.black,
+                //     ),
+                //     subtitle: CustomText(
+                //       textAlign: TextAlign.start,
+                //       text: "10:00 AM ",
+                //       style: TextStyleManager.textStyle13w500,
+                //       color: ColorsManager.gray,
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(height: 20.h),
               ],
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.all(5.r),
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.history,
+                size: 30.r,
+                color: Colors.green,
+              ),
+            ),
+            Expanded(
+              child: CustomElevatedButton(
+                onPressed: () {
+                  MedicinesCubit.get(context).takeMedicines(id: medicines.id);
+                },
+                child: CustomText(
+                  text: "Take",
+                  style: TextStyleManager.textStyle18w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
