@@ -74,9 +74,9 @@ class MedecineScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AddImage(
-                  image: medicines.image,
-                ),
+                // AddImage(
+                //   image: medicines.image,
+                // ),
                 SizedBox(height: 20.h),
                 CustomTextFeild(
                   title: "Pills name",

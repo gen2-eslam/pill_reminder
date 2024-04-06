@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
@@ -6,7 +8,7 @@ import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 
 class AddImage extends StatelessWidget {
-  final String? image;
+  final File? image;
   const AddImage({
     super.key,
     this.image,
@@ -25,7 +27,11 @@ class AddImage extends StatelessWidget {
       ),
       child: image == null
           ? CustomText(text: "Image", style: TextStyleManager.textStyle15w500)
-          : Image.network(image!),
+          : Image.file(
+              image!,
+              fit: BoxFit.cover,
+              width: context.deviceWidth,
+            ),
     );
   }
 }

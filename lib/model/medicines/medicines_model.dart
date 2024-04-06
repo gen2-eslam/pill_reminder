@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+
 class MedicinesModel {
   String message;
   int code;
@@ -81,5 +85,22 @@ class Medicines {
     data['should_reminder'] = shouldReminder;
     data['start_time'] = startTime;
     return data;
+  }
+
+   Future<FormData> addMed({required File image}) async {
+    String fileName = image.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      'name': name,
+      'type': type,
+      'count': count,
+      'frequency': frequency,
+      'dosage': dosage,
+      'before_eating': beforeEating,
+      'should_reminder': shouldReminder,
+      'start_time': startTime,
+      "image": await MultipartFile.fromFile(image.path, filename: fileName),
+    });
+
+    return formData;
   }
 }

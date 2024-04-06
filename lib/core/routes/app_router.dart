@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pill_reminder/controller/edit_medicien/medicien_cubit.dart';
 import 'package:pill_reminder/controller/forget_password/forget_password_cubit.dart';
 import 'package:pill_reminder/controller/home/home_cubit.dart';
 import 'package:pill_reminder/controller/login/login_cubit.dart';
+import 'package:pill_reminder/controller/medicines/medicines_cubit.dart';
 import 'package:pill_reminder/controller/otp_password/otp_password_cubit.dart';
 import 'package:pill_reminder/controller/register/register_cubit.dart';
 import 'package:pill_reminder/controller/reset_password/reset_password_cubit.dart';
@@ -31,10 +33,6 @@ abstract class AppRouter {
     final arguments = settings.arguments;
 
     switch (settings.name) {
-      // case Routes.onBoardingScreen:
-      //   return MaterialPageRoute(
-      //     builder: (_) => const OnBoardingScreen(),
-      //   );
       case Routes.loginScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -45,10 +43,11 @@ abstract class AppRouter {
       case Routes.homeScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-              create: (context) => HomeCubit(
-                    medicinesRepo: MedicinesRepoImpl(),
-                  ),
-              child: const HomeScreen()),
+            create: (context) => HomeCubit(
+              medicinesRepo: MedicinesRepoImpl(),
+            ),
+            child: const HomeScreen(),
+          ),
         );
 
       case Routes.signUpScreen:
@@ -91,7 +90,11 @@ abstract class AppRouter {
       //addMedecineScreen
       case Routes.addMedecineScreen:
         return MaterialPageRoute(
-          builder: (_) => const AddMedecineScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                EditMedicienCubit(medicinesRepo: MedicinesRepoImpl()),
+            child: const AddMedecineScreen(),
+          ),
         );
       case Routes.medecineScreen:
         return MaterialPageRoute(

@@ -13,7 +13,7 @@ class NotificationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -24,98 +24,126 @@ class NotificationSection extends StatelessWidget {
             color: ColorsManager.black),
         SizedBox(height: 20.h),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CustomText(
-                text: "start medicine",
-                style: TextStyleManager.textStyle15w400,
-                color: ColorsManager.black),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5.r, horizontal: 20.r),
-              decoration: BoxDecoration(
-                color: ColorsManager.lightGray,
-                borderRadius: BorderRadius.circular(14.r),
-              ),
-              child: InkWell(
-                onTap: () async {
-                  //todo add time and date
-                  await showOmniDateTimePicker(context: context);
-                },
-                child: Row(
-                  children: [
-                    const Icon(Icons.notifications, color: ColorsManager.gray),
-                    SizedBox(width: 10.w),
-                    FittedBox(
-                      child: CustomText(
-                        text: "10:00 AM",
-                        style: TextStyleManager.textStyle15w500,
+            IntrinsicWidth(
+              stepHeight: 50,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.notifications,
+                          color: ColorsManager.gray),
+                      CustomText(
+                          textAlign: TextAlign.start,
+                          text: "start medicine",
+                          style: TextStyleManager.textStyle15w400,
+                          color: ColorsManager.black),
+                    ],
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      //todo add time and date
+                      await showOmniDateTimePicker(context: context);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 30.r, horizontal: 10.r),
+                      decoration: BoxDecoration(
+                        color: ColorsManager.lightGray,
+                        borderRadius: BorderRadius.circular(14.r),
                       ),
-                    )
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Column(
+                            children: [
+                              FittedBox(
+                                child: CustomText(
+                                  text: "2024-03-30",
+                                  style: TextStyleManager.textStyle15w500,
+                                ),
+                              ),
+                              FittedBox(
+                                child: CustomText(
+                                  text: "10:00 AM",
+                                  style: TextStyleManager.textStyle15w500,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10.h),
+                ],
+              ),
+            ),
+            SizedBox(width: 10.r),
+            Expanded(
+              child: IntrinsicWidth(
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10.r),
+                      decoration: BoxDecoration(
+                        color: ColorsManager.lightGray,
+                        borderRadius: BorderRadius.circular(14.r),
+                      ),
+                      child: Row(
+                        // mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          FittedBox(
+                            child: CustomText(
+                                text: "should reminder",
+                                style: TextStyleManager.textStyle14w400,
+                                color: ColorsManager.black),
+                          ),
+                          Switch(
+                            value: true,
+                            onChanged: (value) {},
+                            activeColor: ColorsManager.green,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10.h),
+                    Container(
+                      padding: EdgeInsets.all(10.r),
+                      decoration: BoxDecoration(
+                        color: ColorsManager.lightGray,
+                        borderRadius: BorderRadius.circular(14.r),
+                      ),
+                      child: Row(
+                        // mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          FittedBox(
+                            child: CustomText(
+                                text: "before eating",
+                                style: TextStyleManager.textStyle14w400,
+                                color: ColorsManager.black),
+                          ),
+                          Switch(
+                            value: true,
+                            onChanged: (value) {},
+                            activeColor: ColorsManager.green,
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           ],
         ),
-        SizedBox(height: 10.h),
-        Align(
-          alignment: AlignmentDirectional.topEnd,
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 4.r, horizontal: 5.r),
-            decoration: BoxDecoration(
-              color: ColorsManager.lightGray,
-              borderRadius: BorderRadius.circular(14.r),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // const Icon(Icons.calendar_today_rounded,
-                //     color: ColorsManager.gray),
-                CustomText(
-                    text: "every", style: TextStyleManager.textStyle17w500),
-                SizedBox(width: 10.w),
-                DropdownButton(
-                  icon: Row(children: [
-                    CustomText(
-                        text: "hours", style: TextStyleManager.textStyle17w500),
-                    const Icon(Icons.arrow_drop_down)
-                  ]),
-                  hint: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.r),
-                      child: CustomText(
-                        text: "1",
-                        style: TextStyleManager.textStyle15w500,
-                      )),
-                  underline: Container(),
-                  onChanged: (value) {},
-                  items: const [
-                    DropdownMenuItem(
-                      value: "1",
-                      child: Text("1"),
-                    ),
-                    DropdownMenuItem(
-                      value: "2",
-                      child: Text("2"),
-                    ),
-                    DropdownMenuItem(
-                      value: "3",
-                      child: Text("3"),
-                    ),
-                    DropdownMenuItem(
-                      value: "4",
-                      child: Text("4"),
-                    ),
-                    DropdownMenuItem(
-                      value: "5",
-                      child: Text("5"),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+        
       ],
     );
   }

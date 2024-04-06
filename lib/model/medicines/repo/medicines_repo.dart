@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:pill_reminder/core/error/failure.dart';
@@ -10,6 +12,9 @@ import 'package:pill_reminder/model/register/register_response.dart';
 
 abstract class MedicinesRepo {
   Future<Either<Failures, MedicinesModel>> getMedicines();
+
+  Future<Either<Failures, AuthResponse>> addMedicines(
+      {required Medicines medicines, required File image});
 
   Future<Either<Failures, AuthResponse>> editMedicines(
       {required int id, required Medicines medicines});
@@ -61,6 +66,23 @@ class MedicinesRepoImpl implements MedicinesRepo {
         url: PillReminderEndPoint.takeMedicine('$id'),
         token: CacheService.getDataString(key: Keys.token),
         data: {},
+      );
+      return Right(AuthResponse.fromJson(response.data));
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(LocalFailures(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, AuthResponse>> addMedicines(
+      {required Medicines medicines, required File image}) async {
+    try {
+      final response = await DioHelper.postData(
+        url: PillReminderEndPoint.storeMedicine,
+        token: CacheService.getDataString(key: Keys.token),
+        data: medicines.addMed(image: image),
       );
       return Right(AuthResponse.fromJson(response.data));
     } on DioException catch (e) {
