@@ -102,4 +102,9 @@ class Medicines {
       "image": await MultipartFile.fromFile(image.path, filename: fileName),
     };
   }
+
+  @override
+  String toString() {
+    return '$name $type $count $frequency $dosage $beforeEating $shouldReminder $image $startTime';
+  }
 }

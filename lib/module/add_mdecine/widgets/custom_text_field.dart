@@ -12,6 +12,8 @@ class CustomTextFeild extends StatelessWidget {
   final Widget? prefixIcon;
   final String title;
 
+  final void Function(String)? onChanged;
+
   const CustomTextFeild({
     super.key,
     this.controller,
@@ -19,7 +21,7 @@ class CustomTextFeild extends StatelessWidget {
     required this.title,
     required this.enabled,
     this.hintText,
-    this.prefixIcon,
+    this.prefixIcon, this.onChanged,
   });
 
   @override
@@ -39,6 +41,8 @@ class CustomTextFeild extends StatelessWidget {
           style: TextStyleManager.textStyle15w400.copyWith(
             color: ColorsManager.black,
           ),
+          onChanged: onChanged,
+          
           decoration: InputDecoration(
             enabled: enabled,
             hintText: hintText,

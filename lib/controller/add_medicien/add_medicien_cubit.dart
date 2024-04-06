@@ -7,12 +7,12 @@ import 'package:intl/intl.dart';
 import 'package:pill_reminder/model/medicines/medicines_model.dart';
 import 'package:pill_reminder/model/medicines/repo/medicines_repo.dart';
 
-part 'medicien_state.dart';
+part 'add_medicien_state.dart';
 
-class EditMedicienCubit extends Cubit<EditMedicienState> {
-  EditMedicienCubit({required this.medicinesRepo}) : super(MedicienInitial());
+class AddMedicienCubit extends Cubit<AddMedicienState> {
+  AddMedicienCubit({required this.medicinesRepo}) : super(MedicienInitial());
   MedicinesRepo medicinesRepo;
-  static EditMedicienCubit get(context) => BlocProvider.of(context);
+  static AddMedicienCubit get(context) => BlocProvider.of(context);
 
   final ImagePicker picker = ImagePicker();
   TextEditingController pillNameController = TextEditingController();

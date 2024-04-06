@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
-import 'package:pill_reminder/controller/edit_medicien/medicien_cubit.dart';
+import 'package:pill_reminder/controller/add_medicien/add_medicien_cubit.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
@@ -57,8 +58,11 @@ class _NotificationSectionState extends State<NotificationSection> {
                     onTap: () async {
                       await showOmniDateTimePicker(context: context)
                           .then((value) {
-                        EditMedicienCubit.get(context).date = value;
-                        EditMedicienCubit.get(context).addController();
+                        widget.medicines.startTime =
+                            DateFormat('yyyy-MM-dd HH:mm').format(value!);
+
+                        AddMedicienCubit.get(context).date = value;
+                        AddMedicienCubit.get(context).addController();
                         setState(() {});
                       });
                     },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/edit_medicien/medicien_cubit.dart';
+import 'package:pill_reminder/controller/add_medicien/add_medicien_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
@@ -33,7 +33,7 @@ class AddMedecineScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: BlocListener<EditMedicienCubit, EditMedicienState>(
+      body: BlocListener<AddMedicienCubit, AddMedicienState>(
         listener: (context, state) {
           if (state is MedicienAddSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
@@ -54,10 +54,10 @@ class AddMedecineScreen extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    BlocBuilder<EditMedicienCubit, EditMedicienState>(
+                    BlocBuilder<AddMedicienCubit, AddMedicienState>(
                       builder: (context, state) {
                         return AddImage(
-                          image: EditMedicienCubit.get(context).image,
+                          image: AddMedicienCubit.get(context).image,
                         );
                       },
                     ),
@@ -70,7 +70,7 @@ class AddMedecineScreen extends StatelessWidget {
                             color: ColorsManager.green,
                           ),
                           onPressed: () {
-                            EditMedicienCubit.get(context).getImage();
+                            AddMedicienCubit.get(context).getImage();
                           }),
                     ),
                   ],
@@ -79,15 +79,15 @@ class AddMedecineScreen extends StatelessWidget {
                 CustomTextFeild(
                   title: "Pills name",
                   enabled: true,
-                  controller: EditMedicienCubit.get(context).pillNameController,
+                  controller: AddMedicienCubit.get(context).pillNameController,
                   hintText: "Enter pills name",
                   prefixIcon: const PillIcon(),
                 ),
                 AmountAndHowLong(
-                  medicines: EditMedicienCubit.get(context).medicines,
+                  medicines: AddMedicienCubit.get(context).medicines,
                 ),
                 NotificationSection(
-                  medicines: EditMedicienCubit.get(context).medicines,
+                  medicines: AddMedicienCubit.get(context).medicines,
                 ),
                 SizedBox(height: 20.h),
                 CustomText(
@@ -103,7 +103,7 @@ class AddMedecineScreen extends StatelessWidget {
                   child: TextField(
                     maxLines: null,
                     controller:
-                        EditMedicienCubit.get(context).dosageNameController,
+                        AddMedicienCubit.get(context).dosageNameController,
                     minLines: 2,
                     decoration: const InputDecoration(
                       hintText: "Enter dosage",
@@ -122,7 +122,7 @@ class AddMedecineScreen extends StatelessWidget {
       ),
       bottomNavigationBar: CustomElevatedButton(
         onPressed: () {
-          EditMedicienCubit.get(context).addMedecin();
+          AddMedicienCubit.get(context).addMedecin();
         },
         child: CustomText(
           text: "Done",

@@ -32,7 +32,7 @@ class MedecineScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              context.pushNamed(Routes.editPillScreen);
+              context.pushNamed(Routes.editPillScreen, arguments: medicines);
             },
             icon: const Icon(
               Icons.edit,
@@ -227,6 +227,7 @@ class MedecineScreen extends StatelessWidget {
             Expanded(
               child: CustomElevatedButton(
                 onPressed: () {
+                  print(medicines.toString());
                   MedicinesCubit.get(context).takeMedicines(id: medicines.id!);
                 },
                 child: CustomText(

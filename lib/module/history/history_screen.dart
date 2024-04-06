@@ -5,7 +5,6 @@ import 'package:pill_reminder/controller/medicines/medicines_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
-import 'package:pill_reminder/core/utils/images_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_error.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 import 'package:pill_reminder/model/medicines/medicines_model.dart';
