@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 
 class MedicinesModel {
   String message;
@@ -27,34 +28,34 @@ class MedicinesModel {
 }
 
 class Medicines {
-  int id;
-  String name;
-  String type;
-  int count;
-  int takenCount;
-  String frequency;
-  String dosage;
-  String nextTakeTime;
+  int? id;
+  String? name;
+  String? type;
+  int? count;
+  int? takenCount;
+  String? frequency;
+  String? dosage;
+  String? nextTakeTime;
   String? snoozeTill;
-  bool beforeEating;
-  bool shouldReminder;
-  String image;
-  String startTime;
+  bool? beforeEating;
+  bool? shouldReminder;
+  String? image;
+  String? startTime;
 
   Medicines({
-    required this.id,
-    required this.name,
-    required this.type,
-    required this.count,
-    required this.takenCount,
-    required this.frequency,
-    required this.dosage,
-    required this.nextTakeTime,
-    required this.snoozeTill,
-    required this.beforeEating,
-    required this.shouldReminder,
-    required this.image,
-    required this.startTime,
+    this.id,
+    this.name = "",
+    this.type = "drink",
+    this.count = 1,
+    this.takenCount,
+    this.frequency = "daily",
+    this.dosage = "",
+    this.nextTakeTime,
+    this.snoozeTill,
+    this.beforeEating = false,
+    this.shouldReminder = false,
+    this.image = "",
+    this.startTime = "",
   });
 
   factory Medicines.fromJson(Map<String, dynamic> json) {
@@ -87,9 +88,9 @@ class Medicines {
     return data;
   }
 
-   Future<FormData> addMed({required File image}) async {
+  Future<Map<String, dynamic>> addMed({required File image}) async {
     String fileName = image.path.split('/').last;
-    FormData formData = FormData.fromMap({
+    return {
       'name': name,
       'type': type,
       'count': count,
@@ -99,8 +100,6 @@ class Medicines {
       'should_reminder': shouldReminder,
       'start_time': startTime,
       "image": await MultipartFile.fromFile(image.path, filename: fileName),
-    });
-
-    return formData;
+    };
   }
 }

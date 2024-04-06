@@ -7,6 +7,7 @@ import 'package:pill_reminder/core/widgets/custom_elevated_button.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 import 'package:pill_reminder/core/widgets/food_and_bill/food_and_bill_list.dart';
 import 'package:pill_reminder/core/widgets/pill_icon.dart';
+import 'package:pill_reminder/model/medicines/medicines_model.dart';
 import 'package:pill_reminder/module/add_mdecine/widgets/add_image.dart';
 import 'package:pill_reminder/module/add_mdecine/widgets/amount_and_how_long.dart';
 import 'package:pill_reminder/module/add_mdecine/widgets/custom_text_field.dart';
@@ -51,7 +52,7 @@ class EditPillScreen extends StatelessWidget {
                 prefixIcon: PillIcon(),
               ),
               SizedBox(height: 20.h),
-              const AmountAndHowLong(),
+               AmountAndHowLong(medicines: Medicines()),
               SizedBox(height: 20.h),
               FoodAndPillsList(),
               SizedBox(height: 20.h),

@@ -92,7 +92,8 @@ abstract class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) =>
-                EditMedicienCubit(medicinesRepo: MedicinesRepoImpl()),
+                EditMedicienCubit(medicinesRepo: MedicinesRepoImpl())
+                  ..addController(),
             child: const AddMedecineScreen(),
           ),
         );
@@ -102,7 +103,10 @@ abstract class AppRouter {
         );
       case Routes.historyScreen:
         return MaterialPageRoute(
-          builder: (_) => const HistoryScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) => MedicinesCubit(),
+            child:  HistoryScreen(medicines: arguments as Medicines),
+          ),
         );
       case Routes.detailsHistoryScreen:
         return MaterialPageRoute(

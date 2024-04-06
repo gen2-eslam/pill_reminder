@@ -20,6 +20,7 @@ abstract class PillReminderEndPoint {
   static String markOneNotificationAsRead(String id) => 'notifications/$id';
   static const String deleteNotification = 'notifications';
   static String deleteOneNotificationAsRead(String id) => 'notifications/$id';
+  static String getMedicinesLogs(String id) => 'api/medicines/$id/logs';
   static const String getMedicines = 'api/medicines';
   static String getOneMedicine(String id) => 'api/medicines/$id';
   static const String storeMedicine = 'api/medicines';

@@ -43,7 +43,7 @@ class DetailsHistoryScreen extends StatelessWidget {
             hintText: "Enter pills name",
             prefixIcon: PillIcon(),
           ),
-          const NotificationSection(),
+          // const NotificationSection(),
           CustomText(
             text: " History",
             style: TextStyleManager.textStyle15w500,

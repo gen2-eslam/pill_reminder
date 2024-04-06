@@ -74,13 +74,17 @@ class MedecineScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // AddImage(
-                //   image: medicines.image,
-                // ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 100.r,
+                  child: Image.network(
+                    medicines.image!,
+                  ),
+                ),
                 SizedBox(height: 20.h),
                 CustomTextFeild(
                   title: "Pills name",
-                  enabled: true,
+                  enabled: false,
                   hintText: medicines.name,
                   prefixIcon: const PillIcon(),
                 ),
@@ -91,7 +95,7 @@ class MedecineScreen extends StatelessWidget {
                     Expanded(
                       child: CustomTextFeild(
                         title: "Types of medicines",
-                        enabled: true,
+                        enabled: false,
                         hintText: medicines.type,
                         prefixIcon: const PillIcon(),
                       ),
@@ -100,7 +104,7 @@ class MedecineScreen extends StatelessWidget {
                     Expanded(
                       child: CustomTextFeild(
                         title: "count",
-                        enabled: true,
+                        enabled: false,
                         hintText: medicines.count.toString(),
                         prefixIcon: const PillIcon(),
                       ),
@@ -114,7 +118,7 @@ class MedecineScreen extends StatelessWidget {
                     Expanded(
                       child: CustomTextFeild(
                         title: "taken count",
-                        enabled: true,
+                        enabled: false,
                         hintText: medicines.takenCount.toString(),
                         prefixIcon: const PillIcon(),
                       ),
@@ -123,7 +127,7 @@ class MedecineScreen extends StatelessWidget {
                     Expanded(
                       child: CustomTextFeild(
                         title: "frequency",
-                        enabled: true,
+                        enabled: false,
                         hintText: medicines.frequency,
                         prefixIcon: const PillIcon(),
                       ),
@@ -137,8 +141,8 @@ class MedecineScreen extends StatelessWidget {
                     Expanded(
                       child: CustomTextFeild(
                         title: "before or after eating",
-                        enabled: true,
-                        hintText: medicines.beforeEating ? "before" : "after",
+                        enabled: false,
+                        hintText: medicines.beforeEating! ? "before" : "after",
                         prefixIcon: const PillIcon(),
                       ),
                     ),
@@ -146,8 +150,8 @@ class MedecineScreen extends StatelessWidget {
                     Expanded(
                       child: CustomTextFeild(
                         title: "should reminder",
-                        enabled: true,
-                        hintText: medicines.shouldReminder ? "yes" : "no",
+                        enabled: false,
+                        hintText: medicines.shouldReminder! ? "yes" : "no",
                         prefixIcon: const PillIcon(),
                       ),
                     ),
@@ -156,12 +160,12 @@ class MedecineScreen extends StatelessWidget {
                 SizedBox(height: 20.h),
                 TitleWithValue(
                   title: "dosage",
-                  value: medicines.dosage,
+                  value: medicines.dosage!,
                 ),
                 SizedBox(height: 20.h),
                 TitleWithValue(
                   title: "Last Time Take",
-                  value: medicines.startTime,
+                  value: medicines.startTime!,
                 ),
                 SizedBox(height: 20.h),
                 // CustomText(
@@ -211,7 +215,9 @@ class MedecineScreen extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.pushNamed(Routes.historyScreen, arguments: medicines);
+              },
               icon: Icon(
                 Icons.history,
                 size: 30.r,
@@ -221,7 +227,7 @@ class MedecineScreen extends StatelessWidget {
             Expanded(
               child: CustomElevatedButton(
                 onPressed: () {
-                  MedicinesCubit.get(context).takeMedicines(id: medicines.id);
+                  MedicinesCubit.get(context).takeMedicines(id: medicines.id!);
                 },
                 child: CustomText(
                   text: "Take",

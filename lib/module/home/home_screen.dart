@@ -116,14 +116,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               leading: const PillIcon(),
                               title: CustomText(
                                 textAlign: TextAlign.start,
-                                text: state.medicinesModel.data[index].name,
+                                text: state.medicinesModel.data[index].name!,
                                 style: TextStyleManager.textStyle15w500,
                                 color: ColorsManager.black,
                               ),
                               subtitle: CustomText(
                                 textAlign: TextAlign.start,
                                 text:
-                                    state.medicinesModel.data[index].startTime,
+                                    state.medicinesModel.data[index].startTime!,
                                 style: TextStyleManager.textStyle13w500,
                                 color: ColorsManager.gray,
                               ),

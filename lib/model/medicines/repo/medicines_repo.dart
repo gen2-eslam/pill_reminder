@@ -7,6 +7,7 @@ import 'package:pill_reminder/core/helper/keys.dart';
 import 'package:pill_reminder/core/networking/dio_helpers.dart';
 import 'package:pill_reminder/core/networking/pill_reminder_end_point.dart';
 import 'package:pill_reminder/core/services/cache_service.dart';
+import 'package:pill_reminder/model/logs/logs_model.dart';
 import 'package:pill_reminder/model/medicines/medicines_model.dart';
 import 'package:pill_reminder/model/register/register_response.dart';
 
@@ -21,6 +22,7 @@ abstract class MedicinesRepo {
   Future<Either<Failures, AuthResponse>> takeMedicines({
     required int id,
   });
+  Future<Either<Failures, List<LogsData>>> getLogs({required int id});
 }
 
 class MedicinesRepoImpl implements MedicinesRepo {
@@ -82,9 +84,24 @@ class MedicinesRepoImpl implements MedicinesRepo {
       final response = await DioHelper.postData(
         url: PillReminderEndPoint.storeMedicine,
         token: CacheService.getDataString(key: Keys.token),
-        data: medicines.addMed(image: image),
+        data: await medicines.addMed(image: image),
       );
       return Right(AuthResponse.fromJson(response.data));
+    } on DioException catch (e) {
+      return Left(ServerFailure.fromDioError(e));
+    } catch (e) {
+      return Left(LocalFailures(errorMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failures, List<LogsData>>> getLogs({required int id}) async {
+    try {
+      final response = await DioHelper.getData(
+        url: PillReminderEndPoint.getMedicinesLogs('$id'),
+        token: CacheService.getDataString(key: Keys.token),
+      );
+      return Right(LogsModel.fromJson(response.data).date);
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));
     } catch (e) {

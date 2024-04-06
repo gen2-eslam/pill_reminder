@@ -1,10 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:pill_reminder/model/medicines/medicines_model.dart';
 import 'package:pill_reminder/model/medicines/repo/medicines_repo.dart';
-import 'package:pill_reminder/module/add_mdecine/add_medecine_screen.dart';
 
 part 'medicien_state.dart';
 
@@ -14,6 +15,12 @@ class EditMedicienCubit extends Cubit<EditMedicienState> {
   static EditMedicienCubit get(context) => BlocProvider.of(context);
 
   final ImagePicker picker = ImagePicker();
+  TextEditingController pillNameController = TextEditingController();
+  //dosage
+  TextEditingController dosageNameController = TextEditingController();
+
+  DateTime? date = DateTime.now();
+  Medicines medicines = Medicines(type: "fares");
 
   File? image;
   Future<void> getImage() async {
@@ -28,7 +35,13 @@ class EditMedicienCubit extends Cubit<EditMedicienState> {
     }
   }
 
-  Future<void> addMedecin({required Medicines medicines}) async {
+  void addController() {
+    medicines.name = pillNameController.text;
+    medicines.dosage = dosageNameController.text;
+    medicines.startTime = DateFormat('yyyy-MM-dd HH:mm').format(date!);
+  }
+
+  Future<void> addMedecin() async {
     emit(MedicienLoading());
     final response =
         await medicinesRepo.addMedicines(medicines: medicines, image: image!);
@@ -37,5 +50,12 @@ class EditMedicienCubit extends Cubit<EditMedicienState> {
     }, (sucess) {
       emit(MedicienAddSuccess(sucess.message));
     });
+  }
+
+  @override
+  Future<void> close() {
+    pillNameController.dispose();
+    dosageNameController.dispose();
+    return super.close();
   }
 }

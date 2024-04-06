@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:omni_datetime_picker/omni_datetime_picker.dart';
+import 'package:pill_reminder/controller/edit_medicien/medicien_cubit.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
+import 'package:pill_reminder/model/medicines/medicines_model.dart';
 
-class NotificationSection extends StatelessWidget {
+class NotificationSection extends StatefulWidget {
+  final Medicines medicines;
   const NotificationSection({
     super.key,
+    required this.medicines,
   });
 
+  @override
+  State<NotificationSection> createState() => _NotificationSectionState();
+}
+
+class _NotificationSectionState extends State<NotificationSection> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,8 +55,12 @@ class NotificationSection extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () async {
-                      //todo add time and date
-                      await showOmniDateTimePicker(context: context);
+                      await showOmniDateTimePicker(context: context)
+                          .then((value) {
+                        EditMedicienCubit.get(context).date = value;
+                        EditMedicienCubit.get(context).addController();
+                        setState(() {});
+                      });
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
@@ -63,13 +76,18 @@ class NotificationSection extends StatelessWidget {
                             children: [
                               FittedBox(
                                 child: CustomText(
-                                  text: "2024-03-30",
+                                  text:
+                                      widget.medicines.startTime!.split(" ")[0],
                                   style: TextStyleManager.textStyle15w500,
                                 ),
                               ),
+                              SizedBox(
+                                height: 20.r,
+                              ),
                               FittedBox(
                                 child: CustomText(
-                                  text: "10:00 AM",
+                                  text:
+                                      widget.medicines.startTime!.split(" ")[1],
                                   style: TextStyleManager.textStyle15w500,
                                 ),
                               ),
@@ -105,8 +123,11 @@ class NotificationSection extends StatelessWidget {
                                 color: ColorsManager.black),
                           ),
                           Switch(
-                            value: true,
-                            onChanged: (value) {},
+                            value: widget.medicines.shouldReminder!,
+                            onChanged: (value) {
+                              widget.medicines.shouldReminder = value;
+                              setState(() {});
+                            },
                             activeColor: ColorsManager.green,
                           ),
                         ],
@@ -130,8 +151,11 @@ class NotificationSection extends StatelessWidget {
                                 color: ColorsManager.black),
                           ),
                           Switch(
-                            value: true,
-                            onChanged: (value) {},
+                            value: widget.medicines.beforeEating!,
+                            onChanged: (value) {
+                              widget.medicines.beforeEating = value;
+                              setState(() {});
+                            },
                             activeColor: ColorsManager.green,
                           ),
                         ],
@@ -143,7 +167,6 @@ class NotificationSection extends StatelessWidget {
             ),
           ],
         ),
-        
       ],
     );
   }
