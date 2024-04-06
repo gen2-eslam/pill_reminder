@@ -58,11 +58,7 @@ class _MyAppState extends State<MyApp> {
       splitScreenMode: true,
       builder: (context, child) => MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => HomeCubit(
-              medicinesRepo: MedicinesRepoImpl(),
-            )..getMedicines(),
-          ),
+         
           BlocProvider(
             create: (context) => MedicinesCubit(),
           ),

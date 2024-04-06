@@ -12,8 +12,19 @@ import 'package:pill_reminder/core/widgets/custom_error.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 import 'package:pill_reminder/core/widgets/pill_icon.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void didChangeDependencies() {
+    HomeCubit.get(context).getMedicines();
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +90,6 @@ class HomeScreen extends StatelessWidget {
               ),
               Expanded(
                 child: BlocBuilder<HomeCubit, HomeState>(
-                  buildWhen: (previous, current) {
-                    return current is MedicinesSuccess ||
-                        current is MedicinesError;
-                  },
                   builder: (context, state) {
                     if (state is MedicinesSuccess) {
                       return ListView.separated(
