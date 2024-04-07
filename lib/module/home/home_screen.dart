@@ -161,19 +161,40 @@ class _HomeScreenState extends State<HomeScreen> {
           bottom: context.deviceHeight * 0.05.r,
           right: context.deviceWidth * 0.05.r,
         ),
-        child: FloatingActionButton(
-          onPressed: () {
-            context.pushNamed(Routes.addMedecineScreen);
-          },
-          backgroundColor: ColorsManager.green,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              18.r,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () {
+                context.pushNamed(Routes.locationView);
+              },
+              backgroundColor: ColorsManager.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  18.r,
+                ),
+              ),
+              child: const Icon(
+                Icons.location_on,
+              ),
             ),
-          ),
-          child: const Icon(
-            Icons.add,
-          ),
+            SizedBox(height: 20.h),
+            FloatingActionButton(
+              onPressed: () {
+                context.pushNamed(Routes.addMedecineScreen);
+              },
+              backgroundColor: ColorsManager.green,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  18.r,
+                ),
+              ),
+              child: const Icon(
+                Icons.add,
+              ),
+            ),
+          ],
         ),
       ),
     );

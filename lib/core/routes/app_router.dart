@@ -18,6 +18,11 @@ import 'package:pill_reminder/module/forget_password/forget_password_screen.dart
 import 'package:pill_reminder/module/history/details_history_screen.dart';
 import 'package:pill_reminder/module/history/history_screen.dart';
 import 'package:pill_reminder/module/home/home_screen.dart';
+import 'package:pill_reminder/module/location/data/location_repo.dart';
+import 'package:pill_reminder/module/location/logic/cubit/location_cubit.dart';
+import 'package:pill_reminder/module/location/logic/services/location_service.dart';
+import 'package:pill_reminder/module/location/logic/services/map_controller.dart';
+import 'package:pill_reminder/module/location/view/location_view.dart';
 import 'package:pill_reminder/module/login/login_screen.dart';
 import 'package:pill_reminder/module/medecine/medecine_screen.dart';
 import 'package:pill_reminder/module/notification/notification_screen.dart';
@@ -47,6 +52,19 @@ abstract class AppRouter {
               medicinesRepo: MedicinesRepoImpl(),
             ),
             child: const HomeScreen(),
+          ),
+        );
+      //LocationView
+
+      case Routes.locationView:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => LocationCubit(
+                locationRepo: LocationRepoImpl(
+                    locationService: LocationService(),
+                    mapController: MapController()))
+              ..checkAndRequestLocationPermission(),
+            child: const LocationView(),
           ),
         );
 

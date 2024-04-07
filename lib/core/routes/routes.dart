@@ -17,5 +17,8 @@ abstract class Routes {
   static const String notificationScreen = "/notificationScreen";
   //profileScreen
   static const String profileScreen = "/profileScreen";
+  //LocationView
+
+  static const String locationView = "/locationView";
 
 }
