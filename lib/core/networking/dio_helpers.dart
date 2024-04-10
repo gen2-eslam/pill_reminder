@@ -202,7 +202,7 @@ class DioHelper {
   static Future<Response> patchData({
     required String url,
     required Map<String, dynamic> data,
-    required String token,
+    String? token,
     bool files = false,
   }) async {
     dio.options.headers = {

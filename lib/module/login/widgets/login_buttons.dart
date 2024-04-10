@@ -33,33 +33,17 @@ class LoginButtons extends StatelessWidget {
           ),
         ),
         SizedBox(height: 30.h),
-        BlocBuilder<LoginCubit, LoginState>(
-          builder: (context, state) {
-            if (state is LoginLoading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: ColorsManager.green,
-                ),
-              );
-            } else {
-              return CustomElevatedButton(
-                onPressed: () {
-                  if (LoginCubit.get(context)
-                      .loginFormKey
-                      .currentState!
-                      .validate()) {
-                        
-                    LoginCubit.get(context).login();
-                  }
-                },
-                child: CustomText(
-                  text: "Login",
-                  style: TextStyleManager.textStyle18w600,
-                  color: Colors.white,
-                ),
-              );
+        CustomElevatedButton(
+          onPressed: () {
+            if (LoginCubit.get(context).loginFormKey.currentState!.validate()) {
+              LoginCubit.get(context).login();
             }
           },
+          child: CustomText(
+            text: "Login",
+            style: TextStyleManager.textStyle18w600,
+            color: Colors.white,
+          ),
         ),
       ],
     );
