@@ -1,6 +1,6 @@
 abstract class PillReminderEndPoint {
   // change the base url to your local ip with port
-  static const String baseUrl = 'http://10.0.2.2:8000/';
+  static const String baseUrl = 'https://amira.spotkradmin.online/';
   static const String registerClient = 'auth/register/client';
   static const String loginClient = 'auth/login/mobile';
   static const String logoutClient = 'auth/logout';
