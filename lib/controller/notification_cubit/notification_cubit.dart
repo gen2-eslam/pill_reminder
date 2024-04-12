@@ -10,15 +10,13 @@ import 'package:pill_reminder/model/notification/notification_repo.dart';
 
 import '../../model/notification/notification_model.dart';
 
-
 part 'notification_state.dart';
 
-class NotificationCubit extends Cubit<NotificationState>
-{
+class NotificationCubit extends Cubit<NotificationState> {
   NotificationCubit(this._notificationRepo) : super(NotificationInitial());
 
   static NotificationCubit get(context) => BlocProvider.of(context);
-  NotificationRepo _notificationRepo;
+  final NotificationRepo _notificationRepo;
   int page = 1;
   NotificationModel? notificationModel;
   int count = 0;
@@ -33,14 +31,14 @@ class NotificationCubit extends Cubit<NotificationState>
       if (page == 1) {
         notificationModel = r;
       } else {
-        notificationModel!.data!.addAll(r.data!);
+        notificationModel!.data.addAll(r.data);
       }
       page++;
       emit(NotificationSuccessState(r));
     });
   }
-  Future<void> getNotificationCount() async
-  {
+
+  Future<void> getNotificationCount() async {
     emit(NotificationActionLoading());
     final response = await _notificationRepo.getNotificationCount();
     response.fold((l) {
@@ -51,9 +49,7 @@ class NotificationCubit extends Cubit<NotificationState>
     });
   }
 
-
-  Future<void> seenAllNotification() async
-  {
+  Future<void> seenAllNotification() async {
     emit(NotificationActionLoading());
     final response = await _notificationRepo.seenAllNotification();
     response.fold((l) {
@@ -62,8 +58,8 @@ class NotificationCubit extends Cubit<NotificationState>
       emit(NotificationAllSeenSuccessState());
     });
   }
-  Future<void> seenOneNotification(String id , int index) async
-  {
+
+  Future<void> seenOneNotification(String id, int index) async {
     emit(NotificationActionLoading());
     final response = await _notificationRepo.seenOneNotification(id);
     response.fold((l) {
@@ -72,8 +68,8 @@ class NotificationCubit extends Cubit<NotificationState>
       emit(NotificationSeenOneSuccessState(index));
     });
   }
-  Future<void> deleteAllNotification() async
-  {
+
+  Future<void> deleteAllNotification() async {
     emit(NotificationActionLoading());
     final response = await _notificationRepo.deleteAllNotification();
     response.fold((l) {
@@ -82,9 +78,8 @@ class NotificationCubit extends Cubit<NotificationState>
       emit(NotificationAllDeleteSuccessState());
     });
   }
-  Future<void> deleteOneNotification(String id , int index)
-  async
-  {
+
+  Future<void> deleteOneNotification(String id, int index) async {
     emit(NotificationActionLoading());
     final response = await _notificationRepo.deleteOneNotification(id);
     response.fold((l) {
@@ -93,9 +88,6 @@ class NotificationCubit extends Cubit<NotificationState>
       emit(NotificationOneDeleteSuccessState(index));
     });
   }
-  void subscribe() async
-  {
 
-  }
-
+  void subscribe() async {}
 }

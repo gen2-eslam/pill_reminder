@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pill_reminder/controller/home/home_cubit.dart';
 import 'package:pill_reminder/controller/medicines/medicines_cubit.dart';
 import 'package:pill_reminder/controller/profile/profile_cubit.dart';
 import 'package:pill_reminder/core/dependency_injection/dependency_injection.dart';
@@ -14,7 +13,6 @@ import 'package:pill_reminder/core/services/bloc_observer.dart';
 import 'package:pill_reminder/core/services/cache_service.dart';
 import 'package:pill_reminder/core/theme/theme_app.dart';
 import 'package:pill_reminder/core/utils/string_manager.dart';
-import 'package:pill_reminder/model/medicines/repo/medicines_repo.dart';
 import 'package:pill_reminder/model/personalData/repo/personal_data_repo.dart';
 
 void main() async {
@@ -62,6 +60,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(
             create: (context) => MedicinesCubit(),
           ),
+          
           BlocProvider(
             create: (context) => ProfileCubit(
               personalDataRepo: PersonalDataRepoImpl(),

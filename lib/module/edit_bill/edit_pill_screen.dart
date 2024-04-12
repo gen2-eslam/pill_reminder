@@ -121,8 +121,9 @@ class _EditPillScreenState extends State<EditPillScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.r),
                   ),
-                  child: TextField(
+                  child: TextFormField(
                     maxLines: null,
+                    initialValue: medicines!.dosage,
                     minLines: 2,
                     onChanged: (value) {
                       medicines!.dosage = value;
