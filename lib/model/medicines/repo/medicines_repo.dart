@@ -83,7 +83,6 @@ class MedicinesRepoImpl implements MedicinesRepo {
     try {
       FormData data = FormData.fromMap(medicines.toJson());
       data.files.add(MapEntry('image', MultipartFile.fromFileSync(image.path)));
- 
 
       final response = await DioHelper.postData(
         url: PillReminderEndPoint.storeMedicine,

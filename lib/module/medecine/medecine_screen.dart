@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pill_reminder/controller/home/home_cubit.dart';
 import 'package:pill_reminder/controller/medicines/medicines_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
@@ -56,6 +57,7 @@ class MedecineScreen extends StatelessWidget {
           if (state is MedicinesTakeSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
                 text: state.message, colorState: ColorState.sucess));
+            HomeCubit.get(context).getMedicines();
           }
           //MedicinesError
           if (state is MedicinesTakeError) {
@@ -165,9 +167,14 @@ class MedecineScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20.h),
                 TitleWithValue(
-                  title: "Last Time Take",
+                  title: "start Time Take",
                   value: medicines.startTime!,
                 ),
+                TitleWithValue(
+                  title: "Last Time Take",
+                  value: medicines.nextTakeTime!,
+                ),
+
                 SizedBox(height: 20.h),
                 // CustomText(
                 //   text: " History",

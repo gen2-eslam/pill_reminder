@@ -58,10 +58,12 @@ class _NotificationSectionState extends State<NotificationSection> {
                     onTap: () async {
                       await showOmniDateTimePicker(context: context)
                           .then((value) {
+                        print(value);
                         widget.medicines.startTime =
-                            DateFormat('yyyy-MM-dd HH:mm').format(value!);
+                            DateFormat('yyyy-MM-dd').add_Hm().format(value!);
                         AddMedicienCubit.get(context).date = value;
                         AddMedicienCubit.get(context).addController();
+                        print(widget.medicines.startTime);
                         setState(() {});
                       });
                     },
@@ -77,22 +79,18 @@ class _NotificationSectionState extends State<NotificationSection> {
                         children: [
                           Column(
                             children: [
-                              FittedBox(
-                                child: CustomText(
-                                  text:
-                                      widget.medicines.startTime!.split(" ")[0],
-                                  style: TextStyleManager.textStyle15w500,
-                                ),
+                              CustomText(
+                                text:
+                                    widget.medicines.startTime!.split(" ")[0],
+                                style: TextStyleManager.textStyle15w500,
                               ),
                               SizedBox(
                                 height: 20.r,
                               ),
-                              FittedBox(
-                                child: CustomText(
-                                  text:
-                                      widget.medicines.startTime!.split(" ")[1],
-                                  style: TextStyleManager.textStyle15w500,
-                                ),
+                              CustomText(
+                                text: DateFormat.jm().format(
+                                    AddMedicienCubit.get(context).date!),
+                                style: TextStyleManager.textStyle15w500,
                               ),
                             ],
                           )
