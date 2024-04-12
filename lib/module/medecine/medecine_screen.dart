@@ -32,6 +32,7 @@ class MedecineScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
+              print(medicines.toString());
               context.pushNamed(Routes.editPillScreen, arguments: medicines);
             },
             icon: const Icon(

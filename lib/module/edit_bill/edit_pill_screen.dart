@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:pill_reminder/controller/medicines/medicines_cubit.dart';
 import 'package:pill_reminder/core/helper/enums.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
@@ -31,10 +32,11 @@ class _EditPillScreenState extends State<EditPillScreen> {
   @override
   void initState() {
     super.initState();
+    DateTime dd = DateTime.parse(widget.medicines.startTime!.substring(0, 16));
     medicines = Medicines(
       name: widget.medicines.name,
       dosage: widget.medicines.dosage,
-      startTime: widget.medicines.startTime,
+      startTime: DateFormat('yyyy-MM-dd HH:mm').format(dd),
       id: widget.medicines.id,
       beforeEating: widget.medicines.beforeEating,
       count: widget.medicines.count,

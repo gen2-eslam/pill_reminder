@@ -60,7 +60,6 @@ class _NotificationSectionState extends State<NotificationSection> {
                           .then((value) {
                         widget.medicines.startTime =
                             DateFormat('yyyy-MM-dd HH:mm').format(value!);
-
                         AddMedicienCubit.get(context).date = value;
                         AddMedicienCubit.get(context).addController();
                         setState(() {});
