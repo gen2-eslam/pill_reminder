@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:pill_reminder/core/error/failure.dart';
 import 'package:pill_reminder/core/networking/dio_helpers.dart';
 import 'package:pill_reminder/core/networking/pill_reminder_end_point.dart';
@@ -78,9 +79,14 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failures, PersonalDataModel>> login(
       {required String email, required String password}) async {
     try {
+      FirebaseMessaging messaging = FirebaseMessaging.instance;
       final response = await DioHelper.postData(
           url: PillReminderEndPoint.loginClient,
-          data: {"email": email, "password": password, "fcm_token": "1234"});
+          data: {
+            "email": email,
+            "password": password,
+            "fcm_token": await messaging.getToken()
+          });
       return Right(PersonalDataModel.fromJson(response.data));
     } on DioException catch (e) {
       return Left(ServerFailure.fromDioError(e));

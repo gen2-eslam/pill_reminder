@@ -15,6 +15,8 @@ import 'package:pill_reminder/module/add_mdecine/widgets/amount_and_how_long.dar
 import 'package:pill_reminder/module/add_mdecine/widgets/custom_text_field.dart';
 import 'package:pill_reminder/module/add_mdecine/widgets/notification_section.dart';
 
+import '../../controller/home/home_cubit.dart';
+
 class AddMedecineScreen extends StatelessWidget {
   const AddMedecineScreen({super.key});
 
@@ -38,6 +40,8 @@ class AddMedecineScreen extends StatelessWidget {
           if (state is MedicienAddSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
                 text: state.message, colorState: ColorState.sucess));
+            HomeCubit.get(context).getMedicines();
+
             context.pop();
           } else if (state is MedicienError) {
             ScaffoldMessenger.of(context).showSnackBar(customSnackBar(

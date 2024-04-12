@@ -39,6 +39,7 @@ class AddMedicienCubit extends Cubit<AddMedicienState> {
     medicines.name = pillNameController.text;
     medicines.dosage = dosageNameController.text;
     medicines.startTime = DateFormat('yyyy-MM-dd HH:mm').format(date!);
+
   }
 
   Future<void> addMedecin() async {
@@ -47,7 +48,9 @@ class AddMedicienCubit extends Cubit<AddMedicienState> {
         await medicinesRepo.addMedicines(medicines: medicines, image: image!);
     response.fold((failures) {
       emit(MedicienError(failures.errorMessage));
-    }, (sucess) {
+    }, (sucess) 
+    {
+
       emit(MedicienAddSuccess(sucess.message));
     });
   }

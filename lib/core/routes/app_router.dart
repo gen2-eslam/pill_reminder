@@ -60,14 +60,9 @@ abstract class AppRouter {
 
       case Routes.locationView:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => LocationCubit(
-                locationRepo: LocationRepoImpl(
-                    locationService: LocationService(),
-                    mapController: MapController()))
-              ..checkAndRequestLocationPermission(),
-            child: const LocationView(),
-          ),
+          builder: (context) {
+            return const LocationView();
+          },
         );
 
       case Routes.signUpScreen:
