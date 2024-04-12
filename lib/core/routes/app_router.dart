@@ -5,12 +5,14 @@ import 'package:pill_reminder/controller/forget_password/forget_password_cubit.d
 import 'package:pill_reminder/controller/home/home_cubit.dart';
 import 'package:pill_reminder/controller/login/login_cubit.dart';
 import 'package:pill_reminder/controller/medicines/medicines_cubit.dart';
+import 'package:pill_reminder/controller/notification_cubit/notification_cubit.dart';
 import 'package:pill_reminder/controller/otp_password/otp_password_cubit.dart';
 import 'package:pill_reminder/controller/register/register_cubit.dart';
 import 'package:pill_reminder/controller/reset_password/reset_password_cubit.dart';
 import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/model/medicines/medicines_model.dart';
 import 'package:pill_reminder/model/medicines/repo/medicines_repo.dart';
+import 'package:pill_reminder/model/notification/notification_repo.dart';
 import 'package:pill_reminder/model/register/register_repo/register_repo.dart';
 import 'package:pill_reminder/module/add_mdecine/add_medecine_screen.dart';
 import 'package:pill_reminder/module/edit_bill/edit_pill_screen.dart';
@@ -132,7 +134,11 @@ abstract class AppRouter {
       //notificationScreen
       case Routes.notificationScreen:
         return MaterialPageRoute(
-          builder: (_) => const NotificationScreen(),
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                NotificationCubit(NotificationRepoImpl())..getNotification(),
+            child: const NotificationScreen(),
+          ),
         );
       case Routes.profileScreen:
         return MaterialPageRoute(

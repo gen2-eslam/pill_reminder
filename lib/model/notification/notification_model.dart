@@ -1,150 +1,97 @@
-import 'package:equatable/equatable.dart';
-
-class NotificationModel extends Equatable {
-  List<NotificationModelData>? data;
-  Links? links;
-  Meta? meta;
-  String? message;
-  int? code;
-  String? type;
+class NotificationModel {
+  List<Data> data;
+  Links links;
+  Meta meta;
+  String message;
+  int code;
+  String type;
 
   NotificationModel(
-      {this.data, this.links, this.meta, this.message, this.code, this.type});
+      {required this.data,
+      required this.links,
+      required this.meta,
+      required this.message,
+      required this.code,
+      required this.type});
 
-  NotificationModel.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      data = <NotificationModelData>[];
-      json['data'].forEach((v) {
-        data!.add(NotificationModelData.fromJson(v));
-      });
-    }
-    links = json['links'] != null ? Links.fromJson(json['links']) : null;
-    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
-    message = json['message'];
-    code = json['code'];
-    type = json['type'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
-    }
-    if (links != null) {
-      data['links'] = links!.toJson();
-    }
-    if (meta != null) {
-      data['meta'] = meta!.toJson();
-    }
-    data['message'] = message;
-    data['code'] = code;
-    data['type'] = type;
-    return data;
-  }
-
-  @override
-  // TODO: implement props
-  List<Object?> get props => [data, links, meta, message, code, type];
+  factory NotificationModel.fromJson(Map<String, dynamic> json) => NotificationModel(
+        data: List<Data>.from(json['data'].map((x) => Data.fromJson(x))),
+        links: Links.fromJson(json['links']),
+        meta: Meta.fromJson(json['meta']),
+        message: json['message'],
+        code: json['code'],
+        type: json['type'],
+      );
 }
 
-class NotificationModelData {
-  String? id;
-  String? createdAt;
-  bool? seen;
-  NotificationBodyModel? body;
+class Data {
+  String id;
+  String title;
+  String? image;
+  String createdAt;
+  bool seen;
+  String body;
+  DataData data;
 
-  NotificationModelData({this.id, this.createdAt, this.seen, this.body});
+  Data(
+      {required this.id,
+      required this.title,
+      this.image,
+      required this.createdAt,
+      required this.seen,
+      required this.body,
+      required this.data});
 
-  NotificationModelData.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    createdAt = json['createdAt'];
-    seen = json['seen'];
-    body = json['body'] != null
-        ? NotificationBodyModel.fromJson(json['body'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['createdAt'] = createdAt;
-    data['seen'] = seen;
-    if (body != null) {
-      data['body'] = body!.toJson();
-    }
-    return data;
-  }
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        id: json['id'],
+        title: json['title'],
+        image: json['image'],
+        createdAt: json['created_at'],
+        seen: json['seen'],
+        body: json['body'],
+        data: DataData.fromJson(json['data']),
+      );
 }
 
-class NotificationBodyModel {
-  bool? isClickable;
-  String? notificationType;
-  dynamic modelId;
-  String? message;
+class DataData {
+  int modelId;
+  String type;
 
-  NotificationBodyModel(
-      {this.isClickable, this.notificationType, this.modelId, this.message});
+  DataData({required this.modelId, required this.type});
 
-  NotificationBodyModel.fromJson(Map<String, dynamic> json) {
-    isClickable = json['isClickable'];
-    notificationType = json['notificationType'];
-    modelId = json['modelId'];
-    message = json['message'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['isClickable'] = isClickable;
-    data['notificationType'] = notificationType;
-    data['modelId'] = modelId;
-    data['message'] = message;
-    return data;
-  }
+  factory DataData.fromJson(Map<String, dynamic> json) => DataData(
+        modelId: json['model_id'],
+        type: json['type'],
+      );
 }
 
 class Links {
-  String? first;
-  String? last;
-  String? next;
+  String first;
+  String last;
+  String next;
   String? prev;
 
-  Links({this.first, this.last, this.next, this.prev});
+  Links(
+      {required this.first, required this.last, required this.next, this.prev});
 
-  Links.fromJson(Map<String, dynamic> json) {
-    first = json['first'];
-    last = json['last'];
-    next = json['next'];
-    prev = json['prev'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['first'] = first;
-    data['last'] = last;
-    data['next'] = next;
-    data['prev'] = prev;
-    return data;
-  }
+  factory Links.fromJson(Map<String, dynamic> json) => Links(
+        first: json['first'],
+        last: json['last'],
+        next: json['next'],
+        prev: json['prev'],
+      );
 }
 
 class Meta {
-  int? currentPage;
-  int? from;
-  int? lastPage;
+  int currentPage;
+  int from;
+  int lastPage;
 
-  Meta({this.currentPage, this.from, this.lastPage});
+  Meta({required this.currentPage, required this.from, required this.lastPage});
 
-  Meta.fromJson(Map<String, dynamic> json) {
-    currentPage = json['current_page'];
-    from = json['from'];
-    lastPage = json['last_page'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['current_page'] = currentPage;
-    data['from'] = from;
-    data['last_page'] = lastPage;
-    return data;
-  }
+  factory Meta.fromJson(Map<String, dynamic> json) => Meta(
+        currentPage: json['current_page'],
+        from: json['from'],
+        lastPage: json['last_page'],
+      );
 }

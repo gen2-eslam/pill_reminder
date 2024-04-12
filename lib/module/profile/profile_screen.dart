@@ -26,13 +26,6 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: ColorsManager.white,
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.edit,
-              color: ColorsManager.green,
-            ),
-          ),
-          IconButton(
             onPressed: () {
               CacheService.clearData();
               context.pushNamedAndRemoveUntil(Routes.loginScreen,

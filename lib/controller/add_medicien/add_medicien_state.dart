@@ -23,3 +23,5 @@ final class AddImageError extends AddMedicienState {
 }
 
 final class AddImageSucess extends AddMedicienState {}
+
+final class AddControllerSuccess extends AddMedicienState {}

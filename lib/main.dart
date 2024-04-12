@@ -34,8 +34,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 }
 
-void main() async 
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
   await CacheService.init();
@@ -114,8 +113,7 @@ class _MyAppState extends State<MyApp> {
             )..getPersonalData(),
           ),
           BlocProvider(
-            create: (context) => 
-            LocationCubit(
+            create: (context) => LocationCubit(
                 locationRepo: LocationRepoImpl(
               locationService: LocationService(),
               mapController: MapController(),
