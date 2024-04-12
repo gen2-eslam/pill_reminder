@@ -81,10 +81,14 @@ class MedicinesRepoImpl implements MedicinesRepo {
   Future<Either<Failures, AuthResponse>> addMedicines(
       {required Medicines medicines, required File image}) async {
     try {
+      FormData data = FormData.fromMap(medicines.toJson());
+      data.files.add(MapEntry('image', MultipartFile.fromFileSync(image.path)));
+ 
+
       final response = await DioHelper.postData(
         url: PillReminderEndPoint.storeMedicine,
         token: CacheService.getDataString(key: Keys.token),
-        data: await medicines.addMed(image: image),
+        data: data,
       );
       return Right(AuthResponse.fromJson(response.data));
     } on DioException catch (e) {

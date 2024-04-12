@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "119366186281",
+    "project_id": "reminderapplication-59616",
+    "storage_bucket": "reminderapplication-59616.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119366186281:android:8f725ab72e04a76a567338",
+        "android_client_info": {
+          "package_name": "com.example.checklst"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJQX0TV45hSpSWIwjnMDCkW2jqpPj-X4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119366186281:android:3cf1121e48993ecd567338",
+        "android_client_info": {
+          "package_name": "com.example.pill_reminder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJQX0TV45hSpSWIwjnMDCkW2jqpPj-X4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

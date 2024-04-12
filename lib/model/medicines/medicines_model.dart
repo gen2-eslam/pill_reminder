@@ -78,12 +78,12 @@ class Medicines {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
-    data['type'] = type;
+    data['type'] = "drink";
     data['count'] = count;
     data['frequency'] = frequency;
     data['dosage'] = dosage;
-    data['before_eating'] = beforeEating;
-    data['should_reminder'] = shouldReminder;
+    data['before_eating'] = 1;
+    data['should_reminder'] = 1;
     data['start_time'] = startTime;
     return data;
   }

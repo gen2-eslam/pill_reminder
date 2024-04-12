@@ -16,7 +16,8 @@ class LocationCubit extends Cubit<LocationState> {
   LocationRepo locationRepo;
   // SettingRepo settingRepo;
 
-  Future<void> checkAndRequestLocationPermission() async {
+  Future<void> checkAndRequestLocationPermission() async 
+  {
     var result = await locationRepo.checkAndRequestLocationPermission();
     result.fold(
         (failuer) => emit(
