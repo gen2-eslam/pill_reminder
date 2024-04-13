@@ -23,6 +23,7 @@ import 'package:pill_reminder/model/personalData/repo/personal_data_repo.dart';
 import 'package:pill_reminder/module/location/logic/cubit/location_cubit.dart';
 import 'package:pill_reminder/module/location/logic/services/map_controller.dart';
 
+import 'core/local_notification.dart';
 import 'module/location/data/location_repo.dart';
 import 'module/location/logic/services/location_service.dart';
 
@@ -32,10 +33,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 
   print("Handling a background message: ${message.messageId}");
+  LocalNotificationService.showBasicNotification(message.data);
 }
 
-void main() async
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
   await CacheService.init();
@@ -66,6 +67,16 @@ void main() async
     if (message.notification != null) {
       print('Message also contained a notification: ${message.notification}');
     }
+    LocalNotificationService.showBasicNotification(message.data);
+  });
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+    LocalNotificationService.showBasicNotification(message.data);
   });
 
   dependencyInjectionSetup();
