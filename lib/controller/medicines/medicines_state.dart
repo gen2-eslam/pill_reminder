@@ -6,6 +6,10 @@ final class MedicinesInitial extends MedicinesState {}
 
 class MedicinesLoading extends MedicinesState {}
 
+// one medicines
+
+
+
 class MedicinesError extends MedicinesState {
   final String errorMessage; // error message
 

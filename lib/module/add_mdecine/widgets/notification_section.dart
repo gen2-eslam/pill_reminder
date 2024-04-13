@@ -62,8 +62,8 @@ class _NotificationSectionState extends State<NotificationSection> {
                             DateFormat('yyyy-MM-dd HH:mm').format(value!);
                         AddMedicienCubit.get(context).date = value;
                         AddMedicienCubit.get(context).addController();
-                        setState(() {});
                       });
+                      setState(() {});
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(
@@ -172,5 +172,7 @@ class _NotificationSectionState extends State<NotificationSection> {
         ),
       ],
     );
+ 
+ 
   }
 }

@@ -14,7 +14,8 @@ class NotificationModel {
       required this.code,
       required this.type});
 
-  factory NotificationModel.fromJson(Map<String, dynamic> json) => NotificationModel(
+  factory NotificationModel.fromJson(Map<String, dynamic> json) =>
+      NotificationModel(
         data: List<Data>.from(json['data'].map((x) => Data.fromJson(x))),
         links: Links.fromJson(json['links']),
         meta: Meta.fromJson(json['meta']),

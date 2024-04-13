@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pill_reminder/controller/notification_cubit/notification_cubit.dart';
 import 'package:pill_reminder/core/helper/extensions.dart';
+import 'package:pill_reminder/core/routes/routes.dart';
 import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
+import 'package:pill_reminder/model/medicines/medicines_model.dart';
+import 'package:pill_reminder/model/medicines/repo/medicines_repo.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -36,21 +39,31 @@ class NotificationScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.all(25.r),
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: CustomText(
-                    text: state.notificationModel.data[index].title,
-                    textAlign: TextAlign.start,
-                    style: TextStyleManager.textStyle15w500,
-                  ),
-                  subtitle: CustomText(
-                    text: state.notificationModel.data[index].body,
-                    textAlign: TextAlign.start,
-                    style: TextStyleManager.textStyle13w500,
-                    color: ColorsManager.blackWithOpacity,
-                  ),
-                  leading: const Icon(
-                    Icons.notifications,
-                    color: ColorsManager.green,
+                return InkWell(
+                  onTap: () async {
+                    context.pushNamed(
+                      Routes.medecineScreen,
+                      arguments: Medicines(
+                        id: state.notificationModel.data[index].data.modelId,
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    title: CustomText(
+                      text: state.notificationModel.data[index].title,
+                      textAlign: TextAlign.start,
+                      style: TextStyleManager.textStyle15w500,
+                    ),
+                    subtitle: CustomText(
+                      text: state.notificationModel.data[index].body,
+                      textAlign: TextAlign.start,
+                      style: TextStyleManager.textStyle13w500,
+                      color: ColorsManager.blackWithOpacity,
+                    ),
+                    leading: const Icon(
+                      Icons.notifications,
+                      color: ColorsManager.green,
+                    ),
                   ),
                 );
               },
@@ -66,7 +79,10 @@ class NotificationScreen extends StatelessWidget {
               style: TextStyleManager.textStyle15w500,
             ));
           }
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+              child: CircularProgressIndicator(
+            color: ColorsManager.green,
+          ));
         },
       ),
     );

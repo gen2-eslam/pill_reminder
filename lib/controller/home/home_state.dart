@@ -12,6 +12,7 @@ class MedicinesError extends HomeState {
   MedicinesError(this.errorMessage);
 }
 
+
 class MedicinesSuccess extends HomeState {
   final MedicinesModel medicinesModel;
 

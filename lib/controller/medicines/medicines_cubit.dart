@@ -10,6 +10,8 @@ class MedicinesCubit extends Cubit<MedicinesState> {
   static MedicinesCubit get(context) => BlocProvider.of(context);
   MedicinesRepo medicinesRepo = MedicinesRepoImpl();
 
+
+
   Future<void> editMedicines({required Medicines medicines}) async {
     emit(MedicinesLoading());
     final response = await medicinesRepo.editMedicines(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pill_reminder/controller/add_medicien/add_medicien_cubit.dart';
+import 'package:pill_reminder/controller/cubit/one_medicine_cubit.dart';
 import 'package:pill_reminder/controller/forget_password/forget_password_cubit.dart';
 import 'package:pill_reminder/controller/home/home_cubit.dart';
 import 'package:pill_reminder/controller/login/login_cubit.dart';
@@ -114,14 +115,14 @@ abstract class AppRouter {
         );
       case Routes.medecineScreen:
         return MaterialPageRoute(
-          builder: (_) => MedecineScreen(medicines: arguments as Medicines),
+          builder: (_) => BlocProvider(
+            create: (context) => OneMedicineCubit(),
+            child: MedecineScreen(medicines: arguments as Medicines),
+          ),
         );
       case Routes.historyScreen:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => MedicinesCubit(),
-            child: HistoryScreen(medicines: arguments as Medicines),
-          ),
+          builder: (_) => HistoryScreen(medicines: arguments as Medicines),
         );
       case Routes.detailsHistoryScreen:
         return MaterialPageRoute(

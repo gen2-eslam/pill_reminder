@@ -43,15 +43,15 @@ class Medicines {
   String? startTime;
 
   Medicines({
-    this.id,
+    this.id = 0,
     this.name = "",
     this.type = "drink",
     this.count = 1,
-    this.takenCount,
+    this.takenCount = 0,
     this.frequency = "daily",
     this.dosage = "",
-    this.nextTakeTime,
-    this.snoozeTill,
+    this.nextTakeTime = "",
+    this.snoozeTill = "",
     this.beforeEating = false,
     this.shouldReminder = false,
     this.image = "",
