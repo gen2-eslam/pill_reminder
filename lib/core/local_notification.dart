@@ -53,7 +53,7 @@ class LocalNotificationService
     );
     await flutterLocalNotificationsPlugin.show(
       math.Random().nextInt(1000),
-      'Baisc Notification',
+      'Pill Reminder',
       data['type'],
       details,
       payload: jsonEncode(data),

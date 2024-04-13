@@ -50,6 +50,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  LocalNotificationService.init();
 
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
