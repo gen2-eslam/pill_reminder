@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "119366186281",
-    "project_id": "reminderapplication-59616",
-    "storage_bucket": "reminderapplication-59616.appspot.com"
+    "project_number": "532692934851",
+    "project_id": "amiraproject-38e6c",
+    "storage_bucket": "amiraproject-38e6c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:119366186281:android:8f725ab72e04a76a567338",
+        "mobilesdk_app_id": "1:532692934851:android:e431f52dfe7c33dadd0276",
         "android_client_info": {
-          "package_name": "com.example.checklst"
+          "package_name": "com.example.excahnge"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCJQX0TV45hSpSWIwjnMDCkW2jqpPj-X4c"
+          "current_key": "AIzaSyDpOpcrTSLSVTY1WJ5mT2u47R-1hLH4Zd0"
         }
       ],
       "services": {
@@ -26,7 +26,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:119366186281:android:3cf1121e48993ecd567338",
+        "mobilesdk_app_id": "1:532692934851:android:d0db67e861a25fdadd0276",
         "android_client_info": {
           "package_name": "com.example.pill_reminder"
         }
@@ -34,7 +34,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCJQX0TV45hSpSWIwjnMDCkW2jqpPj-X4c"
+          "current_key": "AIzaSyDpOpcrTSLSVTY1WJ5mT2u47R-1hLH4Zd0"
         }
       ],
       "services": {

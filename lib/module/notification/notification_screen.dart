@@ -7,7 +7,8 @@ import 'package:pill_reminder/core/theme/manager/colors_manager.dart';
 import 'package:pill_reminder/core/theme/manager/text_style_manager.dart';
 import 'package:pill_reminder/core/widgets/custom_text.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatelessWidget 
+{
   const NotificationScreen({super.key});
 
   @override
@@ -42,11 +43,22 @@ class NotificationScreen extends StatelessWidget {
                     textAlign: TextAlign.start,
                     style: TextStyleManager.textStyle15w500,
                   ),
-                  subtitle: CustomText(
-                    text: state.notificationModel.data[index].body,
-                    textAlign: TextAlign.start,
-                    style: TextStyleManager.textStyle13w500,
-                    color: ColorsManager.blackWithOpacity,
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text: state.notificationModel.data[index].body,
+                        textAlign: TextAlign.start,
+                        style: TextStyleManager.textStyle13w500,
+                        color: ColorsManager.blackWithOpacity,
+                      ),
+                      CustomText(
+                        text: state.notificationModel.data[index].createdAt,
+                        textAlign: TextAlign.start,
+                        style: TextStyleManager.textStyle12w400,
+                        color: ColorsManager.blackWithOpacity,
+                      ),
+                    ],
                   ),
                   leading: const Icon(
                     Icons.notifications,
